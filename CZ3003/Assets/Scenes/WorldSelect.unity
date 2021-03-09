@@ -294,18 +294,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 356724829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff890e80ff6d2904ba15bb0d070f58d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 46e1c384b9dc1c347a46d970f3d17c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progStatus: 30
+  currProg: 0
   btnWorld1: {fileID: 595723257}
   btnWorld2: {fileID: 1170337862}
   btnWorld3: {fileID: 2104036264}
   btnWorld4: {fileID: 999226722}
   btnWorld5: {fileID: 1442377397}
-  player: {fileID: 0}
-  playerData:
-    level: 0
 --- !u!1 &595723255
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +392,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: StageSelectWorld1
+          m_StringArgument: StageSelectWorld
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &595723258
@@ -894,7 +891,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 999226723}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 356724833}
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: StageSelectWorld
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &999226723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1021,7 +1029,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: StageSelectWorld2
+          m_StringArgument: StageSelectWorld
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1170337863
@@ -1141,7 +1149,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1442377398}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 356724833}
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: StageSelectWorld
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1442377398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1347,7 +1366,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: StageSelectWorld3
+          m_StringArgument: StageSelectWorld
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2104036265

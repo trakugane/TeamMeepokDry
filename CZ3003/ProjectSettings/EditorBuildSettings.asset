@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/WorldSelect.unity
     guid: f591ff010e7bd294e8b0233d02aef236
   - enabled: 1
-    path: Assets/Scenes/StageSelectWorld1.unity
+    path: Assets/Scenes/StageSelectWorld.unity
     guid: 63227b3cdc6856c44921be0964c01e4d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StageSelectWorld2.unity
     guid: 1d440f6845aaa0544823591452b652e6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StageSelectWorld3.unity
     guid: e35c87638bbdcc140b4bae7ea1250656
   - enabled: 1
