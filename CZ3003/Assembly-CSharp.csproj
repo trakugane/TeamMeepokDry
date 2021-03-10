@@ -65,15 +65,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AccountManager.cs" />
-    <Compile Include="Assets\Scripts\Buttons.cs" />
-    <Compile Include="Assets\Scripts\LoginUI.cs" />
+    <Compile Include="Assets\Scripts\ButtonManager.cs" />
+    <Compile Include="Assets\Scripts\DBManager.cs" />
+    <Compile Include="Assets\Scripts\GameplayManager.cs" />
     <Compile Include="Assets\Scripts\MainMenuUI.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\QnScripts.cs" />
     <Compile Include="Assets\Scripts\RegisterUI.cs" />
-    <Compile Include="Assets\Scripts\StageSelectUI.cs" />
-    <Compile Include="Assets\Scripts\WorldSelect.cs" />
-    <Compile Include="Assets\Scripts\WorldSelectUI.cs" />
+    <Compile Include="Assets\Scripts\StageSelectManager.cs" />
+    <Compile Include="Assets\Scripts\WorldSelectManager.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -617,9 +617,6 @@
     <Reference Include="Unity.2D.Path.Editor">
       <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
@@ -644,14 +641,8 @@
     <Reference Include="Unity.InternalAPIEngineBridge.001">
       <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
       <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
@@ -674,11 +665,25 @@
     <Reference Include="Unity.InternalAPIEditorBridge.001">
       <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{AEB70B66-C925-9773-0DBF-014459980870}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
+      <Project>{AACE7B6B-CD8A-F6BC-DA68-67EFE8A0F2B4}</Project>
+      <Name>Unity.2D.Sprite.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
+      <Project>{0FFB487A-87D6-D030-5BD5-14FC003AD90E}</Project>
+      <Name>Unity.2D.Tilemap.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{FA57FA70-0CA6-1956-2467-73C9924949E7}</Project>
+      <Name>UnityEditor.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

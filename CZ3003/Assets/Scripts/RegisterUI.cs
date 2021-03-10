@@ -29,7 +29,7 @@ public class RegisterUI : MonoBehaviour
         
     }
 
-    public void checkRegister(string sceneName)
+    /*public void checkRegister(string sceneName)
     {
         Debug.Log("Register Button Pressed!");
         int codeMsg = am.validateAccountCreation(email, password, confirmPassword, personalName);
@@ -57,7 +57,7 @@ public class RegisterUI : MonoBehaviour
             }
         }
             
-    }
+    }*/
 
     
 }

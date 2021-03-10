@@ -8,22 +8,39 @@ using UnityEngine.Events;
 
 public class AccountManager : MonoBehaviour
 {
+
+    public static AccountManager am;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    private void Awake()
+    {
+        if (AccountManager.am == null)
+        {
+            AccountManager.am = this;
+
+        }
+        /*DontDestroyOnLoad(AccountManager.am);*/
+    }
+
+
     public bool validateUser(InputField email, InputField password)
     {
         // If username in database and password is correct, return true
+        /*if (db.checkEmailExist(email.text, password.text) == true)
+            // Set up here
+            return false*/
         // Else, Return false
         Debug.Log("Validated");
 
         return true;
     }
 
-    public bool retrieveData(string user, string password)
+    /*public bool retrieveData(string user, string password)
     {
         // Declare user information variable to store temporary
         string name = "Paul";
@@ -38,9 +55,9 @@ public class AccountManager : MonoBehaviour
         PlayerPrefs.SetString("accountType", accountType);
 
         return true;
-    }
+    }*/
 
-    public int validateAccountCreation(InputField email, InputField password, InputField confirmPassword, InputField personalName)
+    /*public int validateAccountCreation(InputField email, InputField password, InputField confirmPassword, InputField personalName)
     {
         // Check Email with database
         // Check Password & Confirm Password is the same
@@ -56,7 +73,7 @@ public class AccountManager : MonoBehaviour
         // If store unsuccessful, return 3
 
 
-        /*Debug.Log("Error: Account Creation");*/
+        Debug.Log("Error: Account Creation");
         return 0;
-    }
+    }*/
 }

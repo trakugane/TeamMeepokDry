@@ -4,20 +4,48 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int level = 0;
+    public static Player userPlayer;
 
-    public void editProgress (int value)
+    public string name;
+    public int currProg;
+    public int accountType;
+    public int stageValue;
+    public int selectedStageValue;
+
+    private void Awake()
     {
-        level += value;
+        if (Player.userPlayer == null)
+        {
+            Player.userPlayer = this;
+
+        }
+        DontDestroyOnLoad(Player.userPlayer);     
     }
 
-    public void SavePlayer()
+    public void incrementProgress()
     {
-
+        currProg++;
+        Debug.Log(currProg);
+        if ((currProg % 10) == 6)
+        {
+            currProg = currProg + 5;
+            Debug.Log(currProg);
+        }
+            
+        
     }
 
-    public void LoadPlayer()
+    // Start is called before the first frame update
+    void Start()
     {
+        currProg = 31; // Change this 11 to db.getCurrentProgress();
+        name = "John";
+        accountType = 0;
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
