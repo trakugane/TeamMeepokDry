@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\MainMenuUI.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\RegisterUI.cs" />
     <Compile Include="Assets\Scripts\StageSelectUI.cs" />
     <Compile Include="Assets\Scripts\WorldSelect.cs" />
     <Compile Include="Assets\Scripts\WorldSelectUI.cs" />
