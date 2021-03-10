@@ -69,6 +69,7 @@
     <Compile Include="Assets\Models\GameHistory.cs" />
     <Compile Include="Assets\Models\PVP.cs" />
     <Compile Include="Assets\Models\SinglePlayer.cs" />
+    <Compile Include="Assets\Models\StageProgress.cs" />
     <Compile Include="Assets\Models\User.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />

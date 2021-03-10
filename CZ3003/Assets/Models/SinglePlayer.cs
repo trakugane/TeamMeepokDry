@@ -8,17 +8,17 @@ namespace Assets.Models
 {
     class SinglePlayer
     {
-        public int Stage { get; set; }
-        public int Attempt { get; set; }
+    
+
+        public List<StageProgress> AllStageProgress { get; set; }
 
         public SinglePlayer()
         {
 
         }
-        public SinglePlayer(int Stage,int Attempt)
+        public SinglePlayer(List<StageProgress> AllStageProgress)
         {
-            this.Stage=Stage;
-            this.Attempt = Attempt;
+            this.AllStageProgress = AllStageProgress;
 
         }
     }
