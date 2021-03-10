@@ -78,7 +78,6 @@ namespace Assets
 
         public Boolean createUser(User usr)
         {
-            User tmp = new User("abc","123",11,0,"Tom Dick Harry","Adock@gmail.com");
             Boolean createUserSuccess = false;
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
             u_collection.InsertOne(tmp);

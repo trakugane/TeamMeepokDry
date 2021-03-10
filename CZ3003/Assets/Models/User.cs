@@ -10,20 +10,22 @@ namespace Assets.Models
     {
         public String Username { get; set; }
         public String Password { get; set; }
-        public int currProgress { get; set; }
         public int accountType { get; set; }
         public String name { get; set; }
         public String email { get; set; }
+        public SinglePlayer spProgress { get; set; }
+        public PVP mpStatus { get; set; }
 
         public User() { }
-        public User(String Username,String Password,int currProgress,int accountType,String name,String email)
+        public User(String Username,String Password,SinglePlayer spProgress,int accountType,String name,String email,PVP mpStatus)
         {
             this.Username = Username;
             this.Password = Password;
-            this.currProgress = currProgress;
+            this.spProgress = spProgress;
             this.accountType = accountType;
             this.name = name;
             this.email = email;
+            this.mpStatus = mpStatus;
         }
     }
 }
