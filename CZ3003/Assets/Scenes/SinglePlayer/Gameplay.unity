@@ -602,6 +602,7 @@ MonoBehaviour:
   imgStage2: {fileID: 1714768009}
   imgStage3: {fileID: 186664399}
   imgStage4: {fileID: 1477609071}
+  Qntxt: {fileID: 1626982095}
 --- !u!4 &742016566
 Transform:
   m_ObjectHideFlags: 0
@@ -1399,6 +1400,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1e95ab885715a44b1d487d8c85d7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1626982095 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7340451543821475488, guid: 60c300cc45d7d0946abf05a70d99d280,
+    type: 3}
+  m_PrefabInstance: {fileID: 7340451544664364144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1714768009
 GameObject:
   m_ObjectHideFlags: 0

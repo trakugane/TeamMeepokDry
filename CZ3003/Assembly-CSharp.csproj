@@ -64,16 +64,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AccountManager.cs" />
+    <Compile Include="Assets\Scripts\AlwaysOnLoad\DBManager.cs" />
+    <Compile Include="Assets\Scripts\AlwaysOnLoad\Player.cs" />
     <Compile Include="Assets\Scripts\ButtonManager.cs" />
-    <Compile Include="Assets\Scripts\DBManager.cs" />
-    <Compile Include="Assets\Scripts\GameplayManager.cs" />
-    <Compile Include="Assets\Scripts\MainMenuUI.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\QnScripts.cs" />
-    <Compile Include="Assets\Scripts\RegisterUI.cs" />
-    <Compile Include="Assets\Scripts\StageSelectManager.cs" />
-    <Compile Include="Assets\Scripts\WorldSelectManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenuManager.cs" />
+    <Compile Include="Assets\Scripts\ManagerNotInUse\QnScripts.cs" />
+    <Compile Include="Assets\Scripts\SinglePlayer\GameplayManager.cs" />
+    <Compile Include="Assets\Scripts\SinglePlayer\StageSelectManager.cs" />
+    <Compile Include="Assets\Scripts\SinglePlayer\WorldSelectManager.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
