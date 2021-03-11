@@ -21,13 +21,8 @@ namespace Assets.Database
         al.Add(gh);
 
             PVP t = new PVP(1, al);
-
-        User usrt = new User("tanasf", "abc,", tmp, 1, "tanahcaow", "a@gmail.com", t);
-        db.createUser(usrt);
-            Console.WriteLine("testing user");
-            Console.Write("Enter your name: ");
-
-            string name = Console.ReadLine();
-        Console.WriteLine($"Hello {name}");
+        //await db.incrementCurrentStageAttempt(11, "a@gmail.com").ConfigureAwait(false);
+        //await db.checkEmailExists("a@gmail.com").ConfigureAwait(false);
+        await db.verifyAccount("a@gmail.com", "abc,");
     }
 }

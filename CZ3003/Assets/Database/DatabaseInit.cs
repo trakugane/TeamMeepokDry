@@ -46,28 +46,28 @@ namespace Assets
             return au;
         }
 
-        public List<String> retrieveAllUsername()
+        public List<String> retrieveAllEmail()
         {
             List<String> un = new List<string>();
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
-            var p = Builders<User>.Projection.Include(x => x.Username);
+            var p = Builders<User>.Projection.Include(x => x.email);
             List<User> aun = u_collection.Find(new BsonDocument()).Project<User>(p).ToList();
             foreach (User c in aun)
             {
-                un.Add(c.Username);
+                un.Add(c.email);
             }
             return un;
         }
 
-        //Retrieve User by UserName, presume unique username for all users
-         public User retrieveUser(String Username)
+        //Retrieve User by email, presume unique email for all users
+        public User retrieveUser(String email)
         {
             User usr = new User();
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
-            var p = Builders<User>.Filter.Eq(x=>x.Username,Username);
+            var p = Builders<User>.Filter.Eq(x => x.email, email);
             List<User> lUsr;
 
-            lUsr=u_collection.Find(p).ToList();
+            lUsr = u_collection.Find(p).ToList();
             if (lUsr.Count > 0)
             {
                 usr = lUsr[0];
@@ -80,22 +80,89 @@ namespace Assets
         {
             Boolean createUserSuccess = false;
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
-            u_collection.InsertOne(tmp);
+            u_collection.InsertOne(usr);
             createUserSuccess = true;
             return createUserSuccess;
 
         }
-        public Boolean deleteUser(String Username)
+
+        // Method to delete user through his email
+        public Boolean deleteUser(String email)
         {
             Boolean deleteStatus = false;
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
-            var p = Builders<User>.Filter.Eq(x => x.Username, Username);
-            long deleteCount=u_collection.DeleteOne(p).DeletedCount;
+            var p = Builders<User>.Filter.Eq(x => x.email, email);
+            long deleteCount = u_collection.DeleteOne(p).DeletedCount;
             if (deleteCount == 1)
             {
                 return deleteStatus = true;
             }
             return deleteStatus;
+        }
+
+        // Method to increment current stage attempt count
+        public async Task<Boolean> incrementCurrentStageAttempt(int Stage, String email)
+        {
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Where(x => x.email == email && x.spProgress.AllStageProgress.Any(i => i.Stage == Stage));
+            var update = Builders<User>.Update.Inc(u => u.spProgress.AllStageProgress[-1].Attempt, 1);
+            await u_collection.FindOneAndUpdateAsync(filter, update);
+            return true;
+        }
+
+        // Method to check if the email exists
+        public async Task<Boolean> checkEmailExists(String email)
+        {
+            bool checkEmailExistsSuccess = false;
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Eq(u => u.email, email);
+            var user = await u_collection.Find<User>(filter).ToListAsync();
+
+            if (user.Count == 1)
+            {
+                checkEmailExistsSuccess = true;
+                Console.WriteLine("Email found");
+            }
+
+            return checkEmailExistsSuccess;
+        }
+
+        // Method to verify password
+        public async Task<Boolean> checkPassword(String email, String password)
+        {
+            bool checkPasswordCorrect = false;
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Where(x => x.email == email && x.Password == password);
+            var user = await u_collection.Find<User>(filter).ToListAsync();
+
+            if (user.Count == 1)
+            {
+                checkPasswordCorrect = true;
+                Console.WriteLine("Password correct");
+            }
+
+            return checkPasswordCorrect;
+        }
+
+        // Method to verify account
+        public async Task<Boolean> verifyAccount(String email, String password)
+        {
+            bool emailExists = await instance.checkEmailExists(email).ConfigureAwait(false);
+            if (emailExists == false)
+            {
+                Console.WriteLine("Invalid email/password");
+                return false;
+            }
+
+            bool checkPassword = await instance.checkPassword(email, password).ConfigureAwait(false);
+            if (checkPassword == false)
+            {
+                Console.WriteLine("Invalid email/password");
+                return false;
+            }
+
+            Console.WriteLine("Login successful");
+            return true;
         }
     }
 }
