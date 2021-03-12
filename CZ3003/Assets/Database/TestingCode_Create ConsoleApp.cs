@@ -14,7 +14,7 @@ namespace Assets.Database
         StageProgress a = new StageProgress(1, 1);
         List<StageProgress> spl = new List<StageProgress>();
         spl.Add(a);
-            SinglePlayer tmp = new SinglePlayer(spl);
+            SinglePlayer tmp = new SinglePlayer(spl,11);
 
         GameHistory gh = new GameHistory(1, "abc", 1, DateTime.Now);
         List<GameHistory> al = new List<GameHistory>();

@@ -11,14 +11,15 @@ namespace Assets.Models
     
 
         public List<StageProgress> AllStageProgress { get; set; }
-
+        public int currStage { get; set; }
         public SinglePlayer()
         {
 
         }
-        public SinglePlayer(List<StageProgress> AllStageProgress)
+        public SinglePlayer(List<StageProgress> AllStageProgress,int currStage)
         {
             this.AllStageProgress = AllStageProgress;
+            this.currStage = currStage;
 
         }
     }
