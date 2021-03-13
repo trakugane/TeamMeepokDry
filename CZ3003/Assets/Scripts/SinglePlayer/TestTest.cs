@@ -11,10 +11,10 @@ public class TestTest : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject QnText;
-    public GameObject ans1;
-    public GameObject ans2;
-    public GameObject ans3;
-    public GameObject ans4;
+    public Button ans1;
+    public Button ans2;
+    public Button ans3;
+    public Button ans4;
 
     public string qn11 = "2+3=5";//question followed by world i.e 1-1
 
@@ -50,7 +50,7 @@ public class TestTest : MonoBehaviour
         {
             if (i < operatorindex)
             {
-                    
+
                 str1 = str1 + temp[i];
 
             }
@@ -121,24 +121,38 @@ public class TestTest : MonoBehaviour
             deck[randomIndex] = temp;
         }
 
-         ans1.GetComponentInChildren<Text>().text = deck[0];
-         ans2.GetComponentInChildren<Text>().text = deck[1];
-         ans3.GetComponentInChildren<Text>().text = deck[2];
-         ans4.GetComponentInChildren<Text>().text = deck[3];
+        ans1.GetComponentInChildren<Text>().text = deck[0];
+        ans2.GetComponentInChildren<Text>().text = deck[1];
+        ans3.GetComponentInChildren<Text>().text = deck[2];
+        ans4.GetComponentInChildren<Text>().text = deck[3];
+
+        //check for answer 
+        ans1.onClick.RemoveAllListeners();
+        ans1.onClick.AddListener(() => onButtonClicked(ans1));
 
 
-        }
+        ans2.onClick.RemoveAllListeners();
+        ans2.onClick.AddListener(() => onButtonClicked(ans2));
+
+
+        ans3.onClick.RemoveAllListeners();
+        ans3.onClick.AddListener(() => onButtonClicked(ans3));
+
+        ans4.onClick.RemoveAllListeners();
+        ans4.onClick.AddListener(() => onButtonClicked(ans4));
+
+
+    }
 
     public void onButtonClicked(Button btn)
     {
-        /*Text btnText = btn.GetComponentInChildren<Text>();*/
         Text btnText = btn.GetComponentInChildren<Text>();
         int noFromButton = int.Parse(btnText.text);
         Debug.Log("number from button is " + noFromButton);
-        //int Answer = 9; // change to string manipulation of text
+
         if (noFromButton == ans)
         {
-            //gameWin = true;
+            gameWin = true;
             Debug.Log("u clicked on the correct answer :" + ans);
             /*GameController.gameController.points4game++;        //increment points
             Debug.Log(GameController.gameController.points4game);
@@ -149,5 +163,5 @@ public class TestTest : MonoBehaviour
             Debug.Log("u clicked on the wrong answer : " + noFromButton);
         }
     }
-    
+
 }
