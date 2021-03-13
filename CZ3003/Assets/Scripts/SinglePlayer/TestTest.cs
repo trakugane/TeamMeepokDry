@@ -15,10 +15,13 @@ public class TestTest : MonoBehaviour
     public Button ans2;
     public Button ans3;
     public Button ans4;
+    int playerscore = 0;
+    
+    public string[] QnA = new string[] { "6+1=", "4+5=", "3+5=" , "0+0=" , "2+3="};
 
-    public string qn11 = "2+3=5";//question followed by world i.e 1-1
 
-    public string temp = "2+3=5"; // + selectedstagevalue;
+    public int index;
+    public string currentQuestion; // + selectedstagevalue;
 
     public int ans;
 
@@ -27,36 +30,62 @@ public class TestTest : MonoBehaviour
     public int operatorindex;
     public int a;
     public int b;
+    public int gamewin = 3; //default, havent play before
+    public static int size = 5;
 
     void Start()
     {
+        generateQuestion();
+    }
 
-        for (int i = 0; i < temp.Length; i++)
+    void generateQuestion()
+    {
+        if (gamewin == 1)
         {
-            if (temp[i] == '=')
+            size--;
+        }
+        else if (gamewin == 2)
+            size--;
+
+        Debug.Log("gamewin generateQn= " + gamewin);
+        for ( index = 0; index < size; index++)
+        {
+            
+            Debug.Log("current index " + index);
+            currentQuestion = QnA[index];
+            fetchQn();
+        }
+
+        
+    }
+    public void fetchQn()
+    {
+        for (int i = 0; i < currentQuestion.Length; i++)
+        {
+            if (currentQuestion[i] == '=')
             {
                 equalindex = i;
             }
-            else if ((temp[i] == '+') || (temp[i] == '-') || (temp[i] == 'x') || (temp[i] == '/'))
+            else if ((currentQuestion[i] == '+') || (currentQuestion[i] == '-') || (currentQuestion[i] == 'x') || (currentQuestion[i] == '/'))
             {
-                operandchar = temp[i];
+                operandchar = currentQuestion[i];
                 operatorindex = i;
             }
         }
         string str1 = "";
         string str2 = "";
 
-        for (int i = 0; i < temp.Length; i++)
+        for (int i = 0; i < currentQuestion.Length; i++)
         {
             if (i < operatorindex)
             {
 
-                str1 = str1 + temp[i];
+                str1 = str1 + currentQuestion[i];
 
             }
             if (i < equalindex && i > operatorindex)
             {
-                str2 = str2 + temp[i];
+                str2 = str2 + currentQuestion[i];
             }
         }
         a = int.Parse(str1);
@@ -103,7 +132,7 @@ public class TestTest : MonoBehaviour
         Shuffle(strans, strrandom1, strrandom2, strrandom3);
     }
 
-    public void Shuffle(string strans, string strrandomA, string strrandomB, string strrandomC)
+    public void Shuffle(string strans, string strrandomA, string strrandomB, string strrandomC) //shuffle ans boxes
     {
         var deck = new List<string>();
         deck.Add(strans);
@@ -116,7 +145,6 @@ public class TestTest : MonoBehaviour
         {
             string temp = deck[i];
             int randomIndex = Random.Range(0, 4);
-            Debug.Log(randomIndex);
             deck[i] = deck[randomIndex];
             deck[randomIndex] = temp;
         }
@@ -152,16 +180,27 @@ public class TestTest : MonoBehaviour
 
         if (noFromButton == ans)
         {
-            //gameWin = true;
+            gamewin = 1; //means win
+            Debug.Log("gamewin = " + gamewin);
             Debug.Log("u clicked on the correct answer :" + ans);
-            /*GameController.gameController.points4game++;        //increment points
-            Debug.Log(GameController.gameController.points4game);
-            Destroy(GameController.gameController.questionPanel);*/
+            //GameController.gameController.points4game++;        //increment points
+            playerscore++;
+            Debug.Log("Player score: " +playerscore);
+            //Debug.Log(GameController.gameController.points4game);
+            //Destroy(GameController.gameController.questionPanel);
+            generateQuestion();
         }
         else
         {
+             gamewin = 2; //means lost
+
+            Debug.Log("gamewin = " + gamewin);
             Debug.Log("u clicked on the wrong answer : " + noFromButton);
+
+            Debug.Log("Player score: " + playerscore);
+            generateQuestion();
         }
     }
 
+    
 }
