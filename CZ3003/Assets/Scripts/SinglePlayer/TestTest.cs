@@ -152,7 +152,7 @@ public class TestTest : MonoBehaviour
 
         if (noFromButton == ans)
         {
-            gameWin = true;
+            //gameWin = true;
             Debug.Log("u clicked on the correct answer :" + ans);
             /*GameController.gameController.points4game++;        //increment points
             Debug.Log(GameController.gameController.points4game);
