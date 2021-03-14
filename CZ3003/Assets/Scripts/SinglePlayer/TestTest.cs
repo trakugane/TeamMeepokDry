@@ -15,6 +15,7 @@ public class TestTest : MonoBehaviour
     public Button ans2;
     public Button ans3;
     public Button ans4;
+    public GameObject ScoreText;
     int playerscore = 0;
     
     public string[] QnA = new string[] { "6+1=", "4+5=", "3+5=" , "0+0=" , "2+3="};
@@ -185,6 +186,7 @@ public class TestTest : MonoBehaviour
             Debug.Log("u clicked on the correct answer :" + ans);
             //GameController.gameController.points4game++;        //increment points
             playerscore++;
+            ScoreText.GetComponent<Text>().text = playerscore.ToString();
             Debug.Log("Player score: " +playerscore);
             //Debug.Log(GameController.gameController.points4game);
             //Destroy(GameController.gameController.questionPanel);
