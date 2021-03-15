@@ -58,7 +58,7 @@ public class TestTest : MonoBehaviour
     public static int size = 5;
 
     //TODO Fetch world
-    public int world = 34;
+    public int world = Player.userPlayer.selectedStageValue;
 
     void Start()
     {
