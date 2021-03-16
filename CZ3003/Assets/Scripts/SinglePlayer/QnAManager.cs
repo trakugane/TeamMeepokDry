@@ -62,15 +62,18 @@ public class QnAManager : MonoBehaviour
     public int size = 5;
 
     //TODO Fetch world
-    public int world = Player.userPlayer.selectedStageValue;
+    public int world;
 
     void Start()
     {
+        world = Player.userPlayer.selectedStageValue;
         checkWorld();
+
     }
 
     public void checkWorld()
     {
+        Debug.Log("world" +world);
         if (world < 20)
         {
             if (world == 11)
@@ -81,7 +84,7 @@ public class QnAManager : MonoBehaviour
                 tempQnA = QnA13;
             else if (world == 14)
                 tempQnA = QnA14;
-            else
+            else //another scene , need to connect
                 tempQnA = QnA15;
 
         }
@@ -301,8 +304,5 @@ public class QnAManager : MonoBehaviour
                 //Go to score page
         }
     }
-
-
-
     
 }

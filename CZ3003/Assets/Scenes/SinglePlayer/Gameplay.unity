@@ -1123,7 +1123,7 @@ GameObject:
   - component: {fileID: 891181319}
   - component: {fileID: 891181318}
   m_Layer: 0
-  m_Name: Testtest
+  m_Name: QnAManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1253,6 +1253,7 @@ MonoBehaviour:
   a: 0
   b: 0
   gamewin: 3
+  size: 5
   world: 11
 --- !u!4 &891181319
 Transform:

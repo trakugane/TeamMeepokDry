@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-private GameStatus gameStatus = GameStatus.NEXT;
+//private GameStatus gameStatus = GameStatus.NEXT;
 
 public class BossManager : MonoBehaviour
 {
@@ -13,13 +12,13 @@ public class BossManager : MonoBehaviour
     {
 
 
-        currentTime = timeInSeconds;
+        //currentTime = timeInSeconds;
 
-        gameStatus = GameStatus.PLAYING;
+//        gameStatus = GameStatus.PLAYING;
 
     }
 
-    void SetTime(float value)
+    /*void SetTime(float value)
     {
         TimeSpan time = TimeSpan.FromSeconds(currentTime);                       //set the time value
         quizGameUI.TimerText.text = time.ToString("mm':'ss");   //convert time to Time format
@@ -53,4 +52,5 @@ public class BossManager : MonoBehaviour
         //Save the score
         PlayerPrefs.SetInt(currentCategory, correctAnswerCount); //save the score for this category
     }
+    */
 }
