@@ -60,6 +60,7 @@ public class QnAManager : MonoBehaviour
     public int b;
     public int gamewin = 3; //default, havent play before
     public int size = 5;
+    int curQn = 1;
 
     //TODO Fetch world
     public int world;
@@ -271,6 +272,9 @@ public class QnAManager : MonoBehaviour
         int noFromButton = int.Parse(btnText.text);
         Debug.Log("number from button is " + noFromButton);
         int count = 5;
+        
+        curQn++;
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (curQn).ToString();
 
         if (noFromButton == ans)
         {
@@ -288,6 +292,7 @@ public class QnAManager : MonoBehaviour
                 generateQuestion();
             //else
                 //Go to score page
+
         }
         else
         {
@@ -303,6 +308,7 @@ public class QnAManager : MonoBehaviour
             //else
                 //Go to score page
         }
+
     }
     
 }
