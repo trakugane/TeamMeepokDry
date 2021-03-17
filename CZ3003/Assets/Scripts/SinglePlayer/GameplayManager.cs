@@ -99,19 +99,24 @@ public class GameplayManager : MonoBehaviour
         {
             GameObject.Find("BtnNextStage").SetActive(false);
             GameObject.Find("BtnPlayAgain").SetActive(true);
+            GameObject.Find("Lose").SetActive(true);
+            GameObject.Find("Win").SetActive(false);
         }
         else if (int.Parse(GameObject.Find("CurrentScoreText").GetComponent<Text>().text) > (totalNoOfQn / 2))
         {
             resultPass = true;
             GameObject.Find("BtnNextStage").SetActive(true);
             GameObject.Find("BtnPlayAgain").SetActive(false);
+            GameObject.Find("Lose").SetActive(false);
+            GameObject.Find("Win").SetActive(true);
             updateUser();
         }
     }
 
     void updateUser()
     {
-        Player.userPlayer.incrementProgress();
+        if (selectedStageValue == Player.userPlayer.currProg)
+            Player.userPlayer.incrementProgress();
         // Send data to database here
     }
 }
