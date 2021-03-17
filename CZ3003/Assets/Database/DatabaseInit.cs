@@ -36,7 +36,7 @@ namespace Assets
             return instance;
         }
 
-        public List<User> retrieveAllUser()
+        public async Task<List<User>> retrieveAllUser()
         {
 
             IMongoCollection<User> c_collection = db.GetCollection<User>("User");
@@ -46,7 +46,7 @@ namespace Assets
             return au;
         }
 
-        public List<String> retrieveAllEmail()
+        public async Task<List<String>> retrieveAllEmail()
         {
             List<String> un = new List<string>();
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
@@ -60,7 +60,7 @@ namespace Assets
         }
 
         //Retrieve User by email, presume unique email for all users
-        public User retrieveUser(String email)
+        public async Task<User> retrieveUser(String email)
         {
             User usr = new User();
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
@@ -76,18 +76,38 @@ namespace Assets
             return usr;
         }
 
-        public Boolean createUser(User usr)
+        public async Task<Boolean> createUser(User usr)
         {
             Boolean createUserSuccess = false;
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            usr = initialiseStage(usr);
             u_collection.InsertOne(usr);
+
             createUserSuccess = true;
             return createUserSuccess;
 
         }
+        public User initialiseStage(User newUser)
+        {
+            List<StageProgress> spList = new List<StageProgress>();
+            for (int i = 0; i <= 40; i += 10)
+            {
+                for (int j = 11; j <= 15; j++)
+                {
+                    int stg = i + j;
+                    StageProgress stp = new StageProgress(stg, 0);
+                    spList.Add(stp);
+                }
+
+            }
+            SinglePlayer sp = new SinglePlayer(spList, 0);
+            newUser.spProgress = sp;
+            return newUser;
+
+        }
 
         // Method to delete user through his email
-        public Boolean deleteUser(String email)
+        public async Task<Boolean> deleteUser(String email)
         {
             Boolean deleteStatus = false;
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
@@ -164,5 +184,6 @@ namespace Assets
             Console.WriteLine("Login successful");
             return true;
         }
+
     }
 }
