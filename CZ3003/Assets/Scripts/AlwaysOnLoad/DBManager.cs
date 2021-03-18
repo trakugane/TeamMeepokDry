@@ -12,14 +12,13 @@ public class DBManager : MonoBehaviour
 
     public static DBManager dbm;
 
-    public InputField Username;
-    public InputField Password;
+    public string Username;
+    public string Password;
     /*AccountManager am;*/
 
-    public InputField email;
-    public InputField password;
-    public InputField confirmPassword;
-    public InputField personalName;
+    public string email;
+    public string password;
+    public string personalName;
 
     private void Awake()
     {
@@ -69,38 +68,23 @@ public class DBManager : MonoBehaviour
         }
     }
 
-    public void checkRegister(string sceneName)
+    public bool checkRegister(string sceneName)
     {
         Debug.Log("Register Button Pressed!");
-        int codeMsg = validateAccountCreation(email, password, confirmPassword, personalName);
-        if (codeMsg == 0)
-            SceneManager.LoadScene(sceneName);
+        bool codeMsg = validateAccountCreation(email, password, personalName);
+        if (codeMsg)
+            return true;
         else
         {
             // Need display error message to UI (10/3/21)
-            Debug.Log("Error: Account Creation");
-            if (codeMsg == 1)
-            {
-                Debug.Log("Error: Email already exists");
-            }
-            else if (codeMsg == 2)
-            {
-                Debug.Log("Error: Passwords don't match");
-            }
-            else if (codeMsg == 3)
-            {
-                Debug.Log("Error: Storing in database unsuccessful");
-            }
-            else
-            {
-                Debug.Log("Error: Unknown Error");
-            }
+            return false;
         }
+  
 
     }
 
 
-    public bool validateUser(InputField email, InputField password)
+    public bool validateUser(string email, string password)
     {
         // If username in database and password is correct, return true
         /*if (db.checkEmailExist(email.text, password.text) == true)
@@ -129,12 +113,10 @@ public class DBManager : MonoBehaviour
         return true;
     }*/
 
-    public int validateAccountCreation(InputField email, InputField password, InputField confirmPassword, InputField personalName)
+    public bool validateAccountCreation(string email, string password, string personalName)
     {
         // Check Email with database
-        // Check Password & Confirm Password is the same
-        if (password.text.ToString() != confirmPassword.text.ToString())
-            return 2;
+        
 
         // Store all details into database
         int currProg = 11;
@@ -146,10 +128,18 @@ public class DBManager : MonoBehaviour
 
 
         /*Debug.Log("Error: Account Creation");*/
-        return 0;
+        return false;
     }
 
 
-
+    public bool checkEmail(string email)
+    {
+        //Feature to check if Email exist in database.
+        //If it exist, returns true 
+        //  return true;
+        //else
+        // return false;
+        return false;
+    }
 
 }
