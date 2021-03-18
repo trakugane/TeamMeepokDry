@@ -129,6 +129,17 @@ namespace Assets
             await u_collection.FindOneAndUpdateAsync(filter, update);
             return true;
         }
+        public async Task<Boolean> updateCurrentStage(int Stage, String email)
+        {
+
+            Stage += 6;
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Where(x => x.email == email);
+            var update = Builders<User>.Update.Set(x => x.spProgress.currStage, Stage);
+            await u_collection.FindOneAndUpdateAsync(filter, update);
+            return true;
+
+        }
 
         // Method to check if the email exists
         public async Task<Boolean> checkEmailExists(String email)
