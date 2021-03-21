@@ -1896,7 +1896,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedStageValue: 0
   timerText: {fileID: 1891237099}
-  timerCount: 0
+  timerCurrent: 0
+  playingGame: 0
+  QnText: {fileID: 7169874731194437941}
+  ans1: {fileID: 3799172439382887025}
+  ans2: {fileID: 6849581859736211521}
+  ans3: {fileID: 5209672447501035371}
+  ans4: {fileID: 3195802304623298327}
+  ScoreText: {fileID: 264426652}
+  QnA15:
+  - 18+12=
+  - 5+14=
+  - 7+54=
+  - 13+32=
+  - 34+45=
+  QnA25:
+  - 46-32=
+  - 14-5=
+  - 75-2=
+  - 61-39=
+  - 9-5=
+  QnA35:
+  - 4x12=
+  - 14x3=
+  - 2x7=
+  - 6x9=
+  - 9x5=
+  QnA45:
+  - 95/5=
+  - 36/2=
+  - 45/5=
+  - 56/7=
+  - 9/3=
+  tempQnA: []
+  index: 0
+  currentQuestion: 
+  ans: 0
+  operandchar: 0
+  equalindex: 0
+  operatorindex: 0
+  a: 0
+  b: 0
+  gamewin: 3
+  size: 5
 --- !u!4 &1061356427
 Transform:
   m_ObjectHideFlags: 0
@@ -3797,7 +3839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &2437767016712793147
 GameObject:
   m_ObjectHideFlags: 0

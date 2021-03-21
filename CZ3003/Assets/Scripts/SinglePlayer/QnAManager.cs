@@ -23,29 +23,24 @@ public class QnAManager : MonoBehaviour
     public string[] QnA12 = new string[] { "6+7=", "4+9=", "5+8=", "9+9=", "7+9=" };
     public string[] QnA13 = new string[] { "13+1=", "5+16=", "23+54=", "70+1=", "7+17=" };
     public string[] QnA14 = new string[] { "8+12=", "55+33=", "77+4=", "29+14=", "0+32=" };
-    public string[] QnA15 = new string[] { "18+12=", "5+14=", "7+54=", "13+32=", "34+45=" };
 
     //subtraction
     public string[] QnA21 = new string[] { "4-3=", "8-5=", "10-2=", "1-0=", "9-4=" };
     public string[] QnA22 = new string[] { "18-8=", "14-11=", "25-8=", "17-8=", "24-7=" };
     public string[] QnA23 = new string[] { "35-16=", "45-29=", "16-4=", "88-32=", "60-32=" };
     public string[] QnA24 = new string[] { "18-12=", "55-43=", "37-23=", "85-39=", "92-42=" };
-    public string[] QnA25 = new string[] { "46-32=", "14-5=", "75-2=", "61-39=", "9-5=" };
 
     //multiplication
     public string[] QnA31 = new string[] { "4x7=", "8x6=", "10x2=", "5x0=", "9x8=" };
     public string[] QnA32 = new string[] { "18x2=", "11x4=", "2x14=", "15x5=", "7x9=" };
     public string[] QnA33 = new string[] { "3x8=", "4x14=", "17x3=", "10x12=", "16x0=" };
     public string[] QnA34 = new string[] { "1x80=", "5x7=", "3x12=", "12x12=", "8x9=" };
-    public string[] QnA35 = new string[] { "4x12=", "14x3=", "2x7=", "6x9=", "9x5=" };
 
     //division
     public string[] QnA41 = new string[] { "5/1=", "6/3=", "10/2=", "14/7=", "6/2=" };
     public string[] QnA42 = new string[] { "18/2=", "16/2=", "16/4=", "15/5=", "90/10=" };
     public string[] QnA43 = new string[] { "8/8=", "32/8=", "72/3=", "66/11=", "40/5=" };
     public string[] QnA44 = new string[] { "55/5=", "36/6=", "32/4=", "96/12=", "88/8=" };
-    public string[] QnA45 = new string[] { "95/5=", "36/2=", "45/5=", "56/7=", "9/3=" };
-
     public string[] tempQnA;
 
     public int index;
@@ -83,11 +78,8 @@ public class QnAManager : MonoBehaviour
                 tempQnA = QnA12;
             else if (world == 13)
                 tempQnA = QnA13;
-            else if (world == 14)
+            else 
                 tempQnA = QnA14;
-            else //another scene , need to connect
-                tempQnA = QnA15;
-
         }
         else if (world<30)
         {
@@ -97,10 +89,8 @@ public class QnAManager : MonoBehaviour
                 tempQnA = QnA22;
             else if (world == 23)
                 tempQnA = QnA23;
-            else if (world == 24)
+            else 
                 tempQnA = QnA24;
-            else
-                tempQnA = QnA25;
         }
         else if (world < 40)
         {
@@ -110,10 +100,8 @@ public class QnAManager : MonoBehaviour
                 tempQnA = QnA32;
             else if (world == 33)
                 tempQnA = QnA33;
-            else if (world == 34)
+            else 
                 tempQnA = QnA34;
-            else
-                tempQnA = QnA35;
         }
         else
         {
@@ -123,10 +111,8 @@ public class QnAManager : MonoBehaviour
                 tempQnA = QnA42;
             else if (world == 43)
                 tempQnA = QnA43;
-            else if (world == 44)
+            else 
                 tempQnA = QnA44;
-            else
-                tempQnA = QnA45;
         }
 
         generateQuestion();
@@ -148,6 +134,9 @@ public class QnAManager : MonoBehaviour
             Debug.Log("current index " + index);
             currentQuestion = tempQnA[index];
             fetchQn();
+
+            setText();
+            setBtnAns();
         }
 
     }
@@ -201,8 +190,6 @@ public class QnAManager : MonoBehaviour
         else
             ans = a / b;
 
-        setText();
-        setBtnAns();
     }
 
     public void setText()
@@ -281,18 +268,12 @@ public class QnAManager : MonoBehaviour
             gamewin = 1; //means win
             Debug.Log("gamewin = " + gamewin);
             Debug.Log("u clicked on the correct answer :" + ans);
-            //GameController.gameController.points4game++;        //increment points
             playerscore++;
             ScoreText.GetComponent<Text>().text = playerscore.ToString();
             Debug.Log("Player score: " +playerscore);
-            //Debug.Log(GameController.gameController.points4game);
-            //Destroy(GameController.gameController.questionPanel);
             count--;
             if (count >0)
                 generateQuestion();
-            //else
-                //Go to score page
-
         }
         else
         {
@@ -305,8 +286,6 @@ public class QnAManager : MonoBehaviour
             count--;
             if (count > 0)
                 generateQuestion();
-            //else
-                //Go to score page
         }
 
     }
