@@ -147,4 +147,5 @@ public class StageSelectManager : MonoBehaviour
         if (stageValue == 55)
             imgMapLandColour.color = new Color32(235, 47, 47, 255);
     }
+
 }

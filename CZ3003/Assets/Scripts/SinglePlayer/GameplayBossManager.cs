@@ -14,8 +14,16 @@ public class GameplayBossManager : MonoBehaviour
 
     public int selectedStageValue;
     public GameObject timerText;
+    public GameObject resultPanel;
+    public GameObject currentQn;
+    public Button btnNextStage;
+    public Button btnPlayAgain;
+    public Button btnStageSelect;
     public float timerCurrent = 0;
     public bool playingGame;
+    public int totalNoOfQn = 5;
+    public bool resultPass;
+    int curQn = 1;
 
 
     public GameObject QnText;
@@ -55,11 +63,14 @@ public class GameplayBossManager : MonoBehaviour
     {
         selectedStageValue = Player.userPlayer.selectedStageValue;
         Debug.Log("selectedStageValue" + selectedStageValue);
-        
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;
+        resultPass = false;
+        disableResultScreen();
         timerCurrent = 6;
         setTimer(timerCurrent);
         checkWorld();
+        addBtnResultScreenListener();
     }
     
     public void checkWorld()
@@ -252,6 +263,8 @@ public class GameplayBossManager : MonoBehaviour
         Debug.Log("number from button is " + noFromButton);
         int count = 5;
 
+        curQn++;
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (curQn).ToString();
 
         if (noFromButton == ans)
         {
@@ -304,6 +317,7 @@ public class GameplayBossManager : MonoBehaviour
         { 
             timerCurrent -= Time.deltaTime;
             setTimer(timerCurrent);
+            checkGameplay();
         }
     }
 
@@ -318,6 +332,84 @@ public class GameplayBossManager : MonoBehaviour
             playingGame = false;
             Debug.Log("RESULT SCREEN APPEAR");
             // Result panel appear.
+            enableResultScreen();
         }
+    }
+
+    void disableResultScreen()
+    {
+        resultPanel.SetActive(false);
+    }
+
+    void checkGameplay()
+    {
+        if (int.Parse(currentQn.GetComponent<Text>().text) > totalNoOfQn)
+        {
+            currentQn.GetComponent<Text>().text = (int.Parse(currentQn.GetComponent<Text>().text) - 1).ToString();
+            playingGame = false;
+            enableResultScreen();
+        }
+    }
+
+    void enableResultScreen()
+    {
+        resultPanel.SetActive(true);
+        GameObject.Find("CurrentScoreText").GetComponent<Text>().text = GameObject.Find("ScoreText").GetComponent<Text>().text;
+        if (int.Parse(GameObject.Find("CurrentScoreText").GetComponent<Text>().text) < (totalNoOfQn / 2))
+        {
+            //GameObject.Find("BtnNextStage").SetActive(false);
+            //GameObject.Find("BtnPlayAgain").SetActive(true);
+            GameObject.Find("Lose").SetActive(true);
+            GameObject.Find("Win").SetActive(false);
+        }
+        else if (int.Parse(GameObject.Find("CurrentScoreText").GetComponent<Text>().text) > (totalNoOfQn / 2))
+        {
+            resultPass = true;
+            //GameObject.Find("BtnNextStage").SetActive(true);
+            //GameObject.Find("BtnPlayAgain").SetActive(false);
+            GameObject.Find("Lose").SetActive(false);
+            GameObject.Find("Win").SetActive(true);
+            updateUser();
+        }
+    }
+
+    void updateUser()
+    {
+        if (selectedStageValue == Player.userPlayer.currProg)
+            Player.userPlayer.incrementProgress();
+        // Send data to database here
+    }
+
+    public void addBtnResultScreenListener()
+    {
+        // btnNextStage.onClick.AddListener(setNextStage);
+        btnPlayAgain.onClick.AddListener(resetStage);
+    }
+
+    /*public void setNextStage()
+    {
+        Player.userPlayer.incrementStageValue();
+        selectedStageValue = Player.userPlayer.selectedStageValue;
+        Debug.Log("selectedStageValue" + selectedStageValue);
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
+        playingGame = true;
+        curQn = 1;
+        playerscore = 0;
+        // Call Functions or write code here to setup next stage here,
+        // i retrieve the next stage le
+
+        disableResultScreen();
+    }*/
+
+    public void resetStage()
+    {
+        // Call Functions or write code here to reset stage here
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
+        playingGame = true;
+        curQn = 1;
+        playerscore = 0;
+
+
+        disableResultScreen();
     }
 }

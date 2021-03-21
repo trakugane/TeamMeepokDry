@@ -1472,9 +1472,9 @@ MonoBehaviour:
   playingGame: 0
   totalNoOfQn: 5
   currentQn: {fileID: 1976428952}
-  btnNextStage: {fileID: 0}
-  btnPlayAgain: {fileID: 0}
-  btnStageSelect: {fileID: 0}
+  btnNextStage: {fileID: 1515692703}
+  btnPlayAgain: {fileID: 238096601}
+  btnStageSelect: {fileID: 194437667}
   resultPass: 0
 --- !u!4 &742016566
 Transform:
@@ -2078,12 +2078,6 @@ MonoBehaviour:
   - 77+4=
   - 29+14=
   - 0+32=
-  QnA15:
-  - 18+12=
-  - 5+14=
-  - 7+54=
-  - 13+32=
-  - 34+45=
   QnA21:
   - 4-3=
   - 8-5=
@@ -2108,12 +2102,6 @@ MonoBehaviour:
   - 37-23=
   - 85-39=
   - 92-42=
-  QnA25:
-  - 46-32=
-  - 14-5=
-  - 75-2=
-  - 61-39=
-  - 9-5=
   QnA31:
   - 4x7=
   - 8x6=
@@ -2138,12 +2126,6 @@ MonoBehaviour:
   - 3x12=
   - 12x12=
   - 8x9=
-  QnA35:
-  - 4x12=
-  - 14x3=
-  - 2x7=
-  - 6x9=
-  - 9x5=
   QnA41:
   - 5/1=
   - 6/3=
@@ -2168,12 +2150,6 @@ MonoBehaviour:
   - 32/4=
   - 96/12=
   - 88/8=
-  QnA45:
-  - 95/5=
-  - 36/2=
-  - 45/5=
-  - 56/7=
-  - 9/3=
   tempQnA: []
   index: 0
   currentQuestion: 

@@ -31,8 +31,15 @@ public class Player : MonoBehaviour
             currProg = currProg + 5;
             Debug.Log(currProg);
         }
-            
-        
+    }
+
+    public void incrementStageValue()
+    {
+        selectedStageValue++;
+        if ((selectedStageValue % 10) == 6)
+        {
+            selectedStageValue = selectedStageValue + 5;
+        }
     }
 
     // Start is called before the first frame update

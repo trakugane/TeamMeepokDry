@@ -45,6 +45,7 @@ public class GameplayManager : MonoBehaviour
         disableAllStageImage();
         displaySelectedStageImage();
         disableResultScreen();
+        addBtnResultScreenListener();
     }
 
     // Update is called once per frame
@@ -118,5 +119,39 @@ public class GameplayManager : MonoBehaviour
         if (selectedStageValue == Player.userPlayer.currProg)
             Player.userPlayer.incrementProgress();
         // Send data to database here
+    }
+
+    public void addBtnResultScreenListener()
+    {
+        btnNextStage.onClick.AddListener(setNextStage);
+        btnPlayAgain.onClick.AddListener(resetStage);
+    }
+
+    public void setNextStage()
+    {
+        Player.userPlayer.incrementStageValue();
+        selectedStageValue = Player.userPlayer.selectedStageValue;
+        Debug.Log("selectedStageValue" + selectedStageValue);
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
+        playingGame = true;
+        // These 2 below is from QnAManager.cs for GameplayManager.cs, need find a way to reset
+        /*curQn = 1;
+        playerscore = 0;*/
+        // Call Functions or write code here to setup next stage here,
+        // i retrieve the next stage le
+
+        disableResultScreen();
+    }
+
+    public void resetStage()
+    {
+        // Call Functions or write code here to reset stage here
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
+        playingGame = true;
+        // These 2 below is from QnAManager.cs for GameplayManager.cs, need find a way to reset
+        /*curQn = 1;
+        playerscore = 0;*/
+
+        disableResultScreen();
     }
 }
