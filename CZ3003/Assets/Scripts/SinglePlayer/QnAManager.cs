@@ -17,7 +17,8 @@ public class QnAManager : MonoBehaviour
     public Button ans4;
     public GameObject ScoreText;
     int playerscore = 0;
-    
+    int count;
+
     //addition
     public string[] QnA11 = new string[] { "6+1=", "4+5=", "3+5=" , "0+0=" , "2+3="};
     public string[] QnA12 = new string[] { "6+7=", "4+9=", "5+8=", "9+9=", "7+9=" };
@@ -258,7 +259,7 @@ public class QnAManager : MonoBehaviour
         Text btnText = btn.GetComponentInChildren<Text>();
         int noFromButton = int.Parse(btnText.text);
         Debug.Log("number from button is " + noFromButton);
-        int count = 5;
+        count = 5;
         
         curQn++;
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (curQn).ToString();
@@ -288,6 +289,18 @@ public class QnAManager : MonoBehaviour
                 generateQuestion();
         }
 
+    }
+
+    public void resetStage()
+    {
+        curQn = 1;
+        playerscore = 0;
+        ScoreText.GetComponent<Text>().text = playerscore.ToString();
+        count = 5;
+        size = 5;
+
+        world = Player.userPlayer.selectedStageValue;
+        checkWorld();
     }
     
 }

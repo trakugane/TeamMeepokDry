@@ -16,13 +16,67 @@ public class GameplayManager : MonoBehaviour
     public GameObject resultPanel;
     public bool playingGame;
     public int totalNoOfQn = 5;
+    public int winningCon;
     public GameObject currentQn;
     public Button btnNextStage;
     public Button btnPlayAgain;
     public Button btnStageSelect;
     public bool resultPass;
+    public GameObject lose;
+    public GameObject win;
+    public Image imgMapLandColour;
     /*public GameObject Qntxt;*/
 
+    public GameObject QnText;
+    public Button ans1;
+    public Button ans2;
+    public Button ans3;
+    public Button ans4;
+    public GameObject ScoreText;
+    int playerscore = 0;
+    int count;
+
+    //addition
+    public string[] QnA11 = new string[] { "6+1=", "4+5=", "3+5=", "0+0=", "2+3=" };
+    public string[] QnA12 = new string[] { "6+7=", "4+9=", "5+8=", "9+9=", "7+9=" };
+    public string[] QnA13 = new string[] { "13+1=", "5+16=", "23+54=", "70+1=", "7+17=" };
+    public string[] QnA14 = new string[] { "8+12=", "55+33=", "77+4=", "29+14=", "0+32=" };
+
+    //subtraction
+    public string[] QnA21 = new string[] { "4-3=", "8-5=", "10-2=", "1-0=", "9-4=" };
+    public string[] QnA22 = new string[] { "18-8=", "14-11=", "25-8=", "17-8=", "24-7=" };
+    public string[] QnA23 = new string[] { "35-16=", "45-29=", "16-4=", "88-32=", "60-32=" };
+    public string[] QnA24 = new string[] { "18-12=", "55-43=", "37-23=", "85-39=", "92-42=" };
+
+    //multiplication
+    public string[] QnA31 = new string[] { "4x7=", "8x6=", "10x2=", "5x0=", "9x8=" };
+    public string[] QnA32 = new string[] { "18x2=", "11x4=", "2x14=", "15x5=", "7x9=" };
+    public string[] QnA33 = new string[] { "3x8=", "4x14=", "17x3=", "10x12=", "16x0=" };
+    public string[] QnA34 = new string[] { "1x80=", "5x7=", "3x12=", "12x12=", "8x9=" };
+
+    //division
+    public string[] QnA41 = new string[] { "5/1=", "6/3=", "10/2=", "14/7=", "6/2=" };
+    public string[] QnA42 = new string[] { "18/2=", "16/2=", "16/4=", "15/5=", "90/10=" };
+    public string[] QnA43 = new string[] { "8/8=", "32/8=", "72/3=", "66/11=", "40/5=" };
+    public string[] QnA44 = new string[] { "55/5=", "36/6=", "32/4=", "96/12=", "88/8=" };
+    public string[] tempQnA;
+
+    public int index;
+    public string currentQuestion; // + selectedstagevalue;
+
+    public int ans;
+
+    public char operandchar;
+    public int equalindex;
+    public int operatorindex;
+    public int a;
+    public int b;
+    public int gamewin = 3; //default, havent play before
+    public int size = 5;
+    int curQn = 1;
+
+    //TODO Fetch world
+    public int world;
 
     /*public void onClick()
     {
@@ -42,10 +96,16 @@ public class GameplayManager : MonoBehaviour
         print(GameObject.Find("ScoreText").GetComponent<Text>().text);
         playingGame = true;
         resultPass = false;
+        winningCon = 3;
         disableAllStageImage();
         displaySelectedStageImage();
         disableResultScreen();
         addBtnResultScreenListener();
+        setStageIndicator();
+        checkWorld();
+        changeStageColor(selectedStageValue);
+        if ((selectedStageValue % 10) == 4)
+            removeBtnNextStageListener();
     }
 
     // Update is called once per frame
@@ -96,21 +156,24 @@ public class GameplayManager : MonoBehaviour
     {
         resultPanel.SetActive(true);
         GameObject.Find("CurrentScoreText").GetComponent<Text>().text = GameObject.Find("ScoreText").GetComponent<Text>().text;
-        if (int.Parse(GameObject.Find("CurrentScoreText").GetComponent<Text>().text) < (totalNoOfQn / 2))
+        if (int.Parse(GameObject.Find("ScoreText").GetComponent<Text>().text) < winningCon)
         {
-            GameObject.Find("BtnNextStage").SetActive(false);
-            GameObject.Find("BtnPlayAgain").SetActive(true);
-            GameObject.Find("Lose").SetActive(true);
-            GameObject.Find("Win").SetActive(false);
+            btnNextStage.gameObject.SetActive(false);
+            btnPlayAgain.gameObject.SetActive(true);
+            lose.SetActive(true);
+            win.SetActive(false);
         }
-        else if (int.Parse(GameObject.Find("CurrentScoreText").GetComponent<Text>().text) > (totalNoOfQn / 2))
+        else if (int.Parse(GameObject.Find("ScoreText").GetComponent<Text>().text) > winningCon)
         {
             resultPass = true;
-            GameObject.Find("BtnNextStage").SetActive(true);
-            GameObject.Find("BtnPlayAgain").SetActive(false);
-            GameObject.Find("Lose").SetActive(false);
-            GameObject.Find("Win").SetActive(true);
+            btnNextStage.gameObject.SetActive(true);
+            btnPlayAgain.gameObject.SetActive(false);
+            lose.SetActive(false);
+            win.SetActive(true);
             updateUser();
+
+            if ((selectedStageValue % 10) == 4)
+                removeBtnNextStageListener();
         }
     }
 
@@ -119,6 +182,13 @@ public class GameplayManager : MonoBehaviour
         if (selectedStageValue == Player.userPlayer.currProg)
             Player.userPlayer.incrementProgress();
         // Send data to database here
+    }
+
+    public void removeBtnNextStageListener()
+    {
+        btnNextStage.onClick.RemoveAllListeners();
+        btnNextStage.gameObject.SetActive(false);
+        btnPlayAgain.gameObject.SetActive(true);
     }
 
     public void addBtnResultScreenListener()
@@ -134,13 +204,23 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("selectedStageValue" + selectedStageValue);
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;
-        // These 2 below is from QnAManager.cs for GameplayManager.cs, need find a way to reset
-        /*curQn = 1;
-        playerscore = 0;*/
         // Call Functions or write code here to setup next stage here,
         // i retrieve the next stage le
+        setStageIndicator();
 
+        curQn = 1;
+        playerscore = 0;
+        ScoreText.GetComponent<Text>().text = playerscore.ToString();
+        count = 5;
+        size = 5;
+
+        if ((selectedStageValue % 10) == 4)
+            removeBtnNextStageListener();
+
+        disableAllStageImage();
+        displaySelectedStageImage();
         disableResultScreen();
+        checkWorld();
     }
 
     public void resetStage()
@@ -148,10 +228,270 @@ public class GameplayManager : MonoBehaviour
         // Call Functions or write code here to reset stage here
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;
-        // These 2 below is from QnAManager.cs for GameplayManager.cs, need find a way to reset
-        /*curQn = 1;
-        playerscore = 0;*/
+        resultPass = false;
+
+        curQn = 1;
+        playerscore = 0;
+        ScoreText.GetComponent<Text>().text = playerscore.ToString();
+        count = 5;
+        size = 5;
 
         disableResultScreen();
+        checkWorld();
     }
+
+    public void setStageIndicator()
+    {
+        GameObject.Find("CurrentWorldText").GetComponent<Text>().text = (selectedStageValue / 10).ToString();
+        GameObject.Find("CurrentStageText").GetComponent<Text>().text = (selectedStageValue % 10).ToString();
+    }
+
+    public void checkWorld()
+    {
+        Debug.Log("world" + selectedStageValue);
+        if (selectedStageValue < 20)
+        {
+            if (selectedStageValue == 11)
+                tempQnA = QnA11;
+            else if (selectedStageValue == 12)
+                tempQnA = QnA12;
+            else if (selectedStageValue == 13)
+                tempQnA = QnA13;
+            else
+                tempQnA = QnA14;
+        }
+        else if (selectedStageValue < 30)
+        {
+            if (selectedStageValue == 21)
+                tempQnA = QnA21;
+            else if (selectedStageValue == 22)
+                tempQnA = QnA22;
+            else if (selectedStageValue == 23)
+                tempQnA = QnA23;
+            else
+                tempQnA = QnA24;
+        }
+        else if (selectedStageValue < 40)
+        {
+            if (selectedStageValue == 31)
+                tempQnA = QnA31;
+            else if (selectedStageValue == 32)
+                tempQnA = QnA32;
+            else if (selectedStageValue == 33)
+                tempQnA = QnA33;
+            else
+                tempQnA = QnA34;
+        }
+        else
+        {
+            if (selectedStageValue == 41)
+                tempQnA = QnA41;
+            else if (selectedStageValue == 42)
+                tempQnA = QnA42;
+            else if (selectedStageValue == 43)
+                tempQnA = QnA43;
+            else
+                tempQnA = QnA44;
+        }
+
+        generateQuestion();
+    }
+
+    void generateQuestion()
+    {
+        if (gamewin == 1)
+        {
+            size--;
+        }
+        else if (gamewin == 2)
+            size--;
+
+
+        for (index = 0; index < size; index++)
+        {
+
+            Debug.Log("current index " + index);
+            currentQuestion = tempQnA[index];
+            fetchQn();
+
+            setText();
+            setBtnAns();
+        }
+
+    }
+
+    public void fetchQn()
+    {
+        for (int i = 0; i < currentQuestion.Length; i++)
+        {
+            if (currentQuestion[i] == '=')
+            {
+                equalindex = i;
+            }
+            else if ((currentQuestion[i] == '+') || (currentQuestion[i] == '-') || (currentQuestion[i] == 'x') || (currentQuestion[i] == '/'))
+            {
+                operandchar = currentQuestion[i];
+                operatorindex = i;
+            }
+        }
+        string str1 = "";
+        string str2 = "";
+
+        for (int i = 0; i < currentQuestion.Length; i++)
+        {
+            if (i < operatorindex)
+            {
+
+                str1 = str1 + currentQuestion[i];
+
+            }
+            if (i < equalindex && i > operatorindex)
+            {
+                str2 = str2 + currentQuestion[i];
+            }
+        }
+        a = int.Parse(str1);
+        b = int.Parse(str2);
+
+        /*int ans;*/
+        if (operandchar == '+')
+        {
+            ans = a + b;
+        }
+        else if (operandchar == '-')
+        {
+            ans = a - b;
+        }
+        else if (operandchar == 'x')
+        {
+            ans = a * b;
+        }
+        else
+            ans = a / b;
+
+    }
+
+    public void setText()
+    {
+        string msg = "Question: " + a + operandchar + b + " ?";
+        QnText.GetComponent<Text>().text = msg;
+    }
+
+    public void setBtnAns()
+    {
+        int random1 = UnityEngine.Random.Range(0, 99);
+        int random2 = UnityEngine.Random.Range(0, 99);
+        int random3 = UnityEngine.Random.Range(0, 99);
+
+        string strans = ans.ToString();
+        string strrandom1 = random1.ToString();
+        string strrandom2 = random2.ToString();
+        string strrandom3 = random3.ToString();
+
+
+        Shuffle(strans, strrandom1, strrandom2, strrandom3);
+    }
+
+    public void Shuffle(string strans, string strrandomA, string strrandomB, string strrandomC) //shuffle ans boxes
+    {
+        var deck = new List<string>();
+        deck.Add(strans);
+        deck.Add(strrandomA);
+        deck.Add(strrandomB);
+        deck.Add(strrandomC);
+        deck.Add(null);// nulls are allowed for reference type list
+
+        for (int i = 0; i < 4; i++)
+        {
+            string temp = deck[i];
+            int randomIndex = Random.Range(0, 4);
+            deck[i] = deck[randomIndex];
+            deck[randomIndex] = temp;
+        }
+
+        ans1.GetComponentInChildren<Text>().text = deck[0];
+        ans2.GetComponentInChildren<Text>().text = deck[1];
+        ans3.GetComponentInChildren<Text>().text = deck[2];
+        ans4.GetComponentInChildren<Text>().text = deck[3];
+
+        //check for answer 
+        ans1.onClick.RemoveAllListeners();
+        ans1.onClick.AddListener(() => onButtonClicked(ans1));
+
+
+        ans2.onClick.RemoveAllListeners();
+        ans2.onClick.AddListener(() => onButtonClicked(ans2));
+
+
+        ans3.onClick.RemoveAllListeners();
+        ans3.onClick.AddListener(() => onButtonClicked(ans3));
+
+        ans4.onClick.RemoveAllListeners();
+        ans4.onClick.AddListener(() => onButtonClicked(ans4));
+
+
+    }
+
+    public void onButtonClicked(Button btn)
+    {
+        Text btnText = btn.GetComponentInChildren<Text>();
+        int noFromButton = int.Parse(btnText.text);
+        Debug.Log("number from button is " + noFromButton);
+        count = 5;
+
+        curQn++;
+        GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (curQn).ToString();
+
+        if (noFromButton == ans)
+        {
+            gamewin = 1; //means win
+            Debug.Log("gamewin = " + gamewin);
+            Debug.Log("u clicked on the correct answer :" + ans);
+            playerscore++;
+            ScoreText.GetComponent<Text>().text = playerscore.ToString();
+            Debug.Log("Player score: " + playerscore);
+            count--;
+            if (count > 0)
+                generateQuestion();
+        }
+        else
+        {
+            gamewin = 2; //means lost
+
+            Debug.Log("gamewin = " + gamewin);
+            Debug.Log("u clicked on the wrong answer : " + noFromButton);
+
+            Debug.Log("Player score: " + playerscore);
+            count--;
+            if (count > 0)
+                generateQuestion();
+        }
+
+    }
+
+    void changeStageColor(int stageValue)
+    {
+        if (stageValue / 10 == 1)
+            imgMapLandColour.color = new Color32(113, 201, 109, 255);
+        if (stageValue / 10 == 2)
+            imgMapLandColour.color = new Color32(229, 237, 106, 255);
+        if (stageValue / 10 == 3)
+            imgMapLandColour.color = new Color32(250, 176, 0, 255);
+        if (stageValue / 10 == 4)
+            imgMapLandColour.color = new Color32(250, 100, 0, 255);
+        if (stageValue / 10 == 5)
+            imgMapLandColour.color = new Color32(235, 47, 47, 255);
+    }
+
+    /*public void resetStage()
+    {
+        curQn = 1;
+        playerscore = 0;
+        ScoreText.GetComponent<Text>().text = playerscore.ToString();
+        count = 5;
+        size = 5;
+
+        selectedStageValue = Player.userPlayer.selectedStageValue;
+        checkWorld();
+    }*/
 }

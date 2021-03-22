@@ -2593,14 +2593,27 @@ MonoBehaviour:
   btnStageSelect: {fileID: 1207533432}
   timerCurrent: 0
   playingGame: 0
-  totalNoOfQn: 5
   resultPass: 0
+  imgMapLandColour: {fileID: 1993408310}
   QnText: {fileID: 7169874731194437941}
+  currentQuestion: 
+  gamewin: 3
+  size: 5
+  a: 0
+  b: 0
+  ans: 0
+  operandchar: 0
+  equalindex: 0
+  operatorindex: 0
   ans1: {fileID: 3799172439382887025}
   ans2: {fileID: 6849581859736211521}
   ans3: {fileID: 5209672447501035371}
   ans4: {fileID: 3195802304623298327}
   ScoreText: {fileID: 264426652}
+  totalNoOfQn: 5
+  count: 5
+  win: {fileID: 1656039303}
+  lose: {fileID: 1929770435}
   QnA15:
   - 18+12=
   - 5+14=
@@ -2626,16 +2639,6 @@ MonoBehaviour:
   - 56/7=
   - 9/3=
   tempQnA: []
-  index: 0
-  currentQuestion: 
-  ans: 0
-  operandchar: 0
-  equalindex: 0
-  operatorindex: 0
-  a: 0
-  b: 0
-  gamewin: 3
-  size: 5
   stillcontinuing: 0
 --- !u!4 &1061356427
 Transform:
@@ -5371,7 +5374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5d941474db4728f4ba6f66c86e49b69e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23881d7b12dfdf94a90b145436b0aa52, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

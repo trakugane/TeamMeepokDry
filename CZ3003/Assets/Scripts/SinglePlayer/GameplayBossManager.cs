@@ -21,18 +21,39 @@ public class GameplayBossManager : MonoBehaviour
     public Button btnStageSelect;
     public float timerCurrent = 0;
     public bool playingGame;
-    public int totalNoOfQn = 5;
     public bool resultPass;
-    int curQn = 1;
-
+    public Image imgMapLandColour;
 
     public GameObject QnText;
+
+    public string currentQuestion; // + selectedstagevalue;
+
+    public int gamewin = 3; //default, havent play before
+    public int size = 5;
+
+    public int a;
+    public int b;
+    public int ans;
+    public char operandchar;
+    public int equalindex;
+    public int operatorindex;
+
     public Button ans1;
     public Button ans2;
     public Button ans3;
     public Button ans4;
+
     public GameObject ScoreText;
     int playerscore = 0;
+
+    int curQn = 1;
+    public int totalNoOfQn = 5;
+    public int count = 5;
+
+    public GameObject win;
+    public GameObject lose;
+
+
 
     //Boss Levels
     public string[] QnA15 = new string[] { "18+12=", "5+14=", "7+54=", "13+32=", "34+45=" };
@@ -41,19 +62,6 @@ public class GameplayBossManager : MonoBehaviour
     public string[] QnA45 = new string[] { "95/5=", "36/2=", "45/5=", "56/7=", "9/3=" };
     public string[] tempQnA;
 
-
-    public int index;
-    public string currentQuestion; // + selectedstagevalue;
-
-    public int ans;
-
-    public char operandchar;
-    public int equalindex;
-    public int operatorindex;
-    public int a;
-    public int b;
-    public int gamewin = 3; //default, havent play before
-    public int size = 5;
 
     public bool stillcontinuing = false;
 
@@ -69,17 +77,18 @@ public class GameplayBossManager : MonoBehaviour
         disableResultScreen();
         timerCurrent = 6;
         setTimer(timerCurrent);
-        checkWorld();
+        checkWorld(selectedStageValue);
         addBtnResultScreenListener();
+        changeStageColor(selectedStageValue);
     }
-    
-    public void checkWorld()
+
+    public void checkWorld(int selectedStage)
     {
-        if (selectedStageValue == 15)
+        if (selectedStage == 15)
             tempQnA = QnA15;
-        else if (selectedStageValue == 25)
+        else if (selectedStage == 25)
             tempQnA = QnA25;
-        else if (selectedStageValue == 35)
+        else if (selectedStage == 35)
             tempQnA = QnA35;
         else
             tempQnA = QnA45;
@@ -88,8 +97,8 @@ public class GameplayBossManager : MonoBehaviour
         generateQuestion();
 
     }
-    
-    void generateQuestion()
+
+    public void generateQuestion()
     {
         if (gamewin == 1)
         {
@@ -98,7 +107,7 @@ public class GameplayBossManager : MonoBehaviour
         else if (gamewin == 2)
             size--;
 
-        for (index = 0; index < size; index++)
+        for (int index = 0; index < size; index++)
         {
             Random random = new Random();
             int value = Random.Range(0, tempQnA.Length);
@@ -171,13 +180,13 @@ public class GameplayBossManager : MonoBehaviour
         setText();
         setBtnAns();
     }
-    
+
     public void setText()
     {
         string msg = "Question: " + a + operandchar + b + " ?";
         QnText.GetComponent<Text>().text = msg;
     }
-    
+
     public void setBtnAns()
     {
         int random1 = UnityEngine.Random.Range(0, 99);
@@ -213,7 +222,7 @@ public class GameplayBossManager : MonoBehaviour
 
         Shuffle(strans, strrandom1, strrandom2, strrandom3);
     }
-    
+
     public void Shuffle(string strans, string strrandomA, string strrandomB, string strrandomC) //shuffle ans boxes
     {
         var deck = new List<string>();
@@ -226,7 +235,7 @@ public class GameplayBossManager : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             string temp = deck[i];
-            int randomIndex =Random.Range(0, 4);
+            int randomIndex = Random.Range(0, 4);
             deck[i] = deck[randomIndex];
             deck[randomIndex] = temp;
         }
@@ -252,16 +261,16 @@ public class GameplayBossManager : MonoBehaviour
 
         ans4.onClick.RemoveAllListeners();
         ans4.onClick.AddListener(() => onButtonClicked(ans4));
-        
+
 
     }
-    
+
     public void onButtonClicked(Button btn)
     {
         Text btnText = btn.GetComponentInChildren<Text>();
         int noFromButton = int.Parse(btnText.text);
         Debug.Log("number from button is " + noFromButton);
-        int count = 5;
+        count = 5;
 
         curQn++;
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (curQn).ToString();
@@ -359,16 +368,16 @@ public class GameplayBossManager : MonoBehaviour
         {
             //GameObject.Find("BtnNextStage").SetActive(false);
             //GameObject.Find("BtnPlayAgain").SetActive(true);
-            GameObject.Find("Lose").SetActive(true);
-            GameObject.Find("Win").SetActive(false);
+            lose.SetActive(true);
+            win.SetActive(false);
         }
         else if (int.Parse(GameObject.Find("CurrentScoreText").GetComponent<Text>().text) > (totalNoOfQn / 2))
         {
             resultPass = true;
             //GameObject.Find("BtnNextStage").SetActive(true);
             //GameObject.Find("BtnPlayAgain").SetActive(false);
-            GameObject.Find("Lose").SetActive(false);
-            GameObject.Find("Win").SetActive(true);
+            lose.SetActive(false);
+            win.SetActive(true);
             updateUser();
         }
     }
@@ -408,8 +417,27 @@ public class GameplayBossManager : MonoBehaviour
         playingGame = true;
         curQn = 1;
         playerscore = 0;
+        ScoreText.GetComponent<Text>().text = playerscore.ToString();
+        count = 5;
+        size = 5;
 
-
+        checkWorld(selectedStageValue);
         disableResultScreen();
+        timerCurrent = 6;
+        setTimer(timerCurrent);
+    }
+
+    void changeStageColor(int stageValue)
+    {
+        if (stageValue / 10 == 1)
+            imgMapLandColour.color = new Color32(113, 201, 109, 255);
+        if (stageValue / 10 == 2)
+            imgMapLandColour.color = new Color32(229, 237, 106, 255);
+        if (stageValue / 10 == 3)
+            imgMapLandColour.color = new Color32(250, 176, 0, 255);
+        if (stageValue / 10 == 4)
+            imgMapLandColour.color = new Color32(250, 100, 0, 255);
+        if (stageValue / 10 == 5)
+            imgMapLandColour.color = new Color32(235, 47, 47, 255);
     }
 }

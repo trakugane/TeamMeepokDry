@@ -75,8 +75,10 @@
     <Compile Include="Assets\Scripts\SinglePlayer\FetchQn.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\GameplayBossManager.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\GameplayManager.cs" />
+    <Compile Include="Assets\Scripts\SinglePlayer\GenerateQnA.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\QnAManager.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\StageSelectManager.cs" />
+    <Compile Include="Assets\Scripts\SinglePlayer\TimerManager.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\WorldSelectManager.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
