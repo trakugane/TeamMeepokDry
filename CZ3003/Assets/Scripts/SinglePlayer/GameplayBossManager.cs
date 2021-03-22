@@ -429,7 +429,8 @@ public class GameplayBossManager : MonoBehaviour
         gamewin = 3;
 
         tempQnA.Clear();
-        checkWorld(selectedStageValue);
+        //checkWorld(selectedStageValue);
+        Start();
         disableResultScreen();
         timerCurrent = 6;
         setTimer(timerCurrent);

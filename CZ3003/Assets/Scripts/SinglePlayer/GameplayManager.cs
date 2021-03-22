@@ -250,7 +250,6 @@ public class GameplayManager : MonoBehaviour
 
     public void checkWorld()
     {
-        Debug.Log("world" + selectedStageValue);
         if (selectedStageValue < 20)
         {
             if (selectedStageValue == 11)
