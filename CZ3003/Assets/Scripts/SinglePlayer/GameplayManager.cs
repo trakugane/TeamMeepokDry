@@ -59,9 +59,10 @@ public class GameplayManager : MonoBehaviour
     public string[] QnA42 = new string[] { "18/2=", "16/2=", "16/4=", "15/5=", "90/10=" };
     public string[] QnA43 = new string[] { "8/8=", "32/8=", "72/3=", "66/11=", "40/5=" };
     public string[] QnA44 = new string[] { "55/5=", "36/6=", "32/4=", "96/12=", "88/8=" };
-    public string[] tempQnA;
+    public string[] copyQnA;
+    public List<string> tempQnA = new List<string>();
 
-    public int index;
+    /*public int index;*/
     public string currentQuestion; // + selectedstagevalue;
 
     public int ans;
@@ -235,6 +236,7 @@ public class GameplayManager : MonoBehaviour
         ScoreText.GetComponent<Text>().text = playerscore.ToString();
         count = 5;
         size = 5;
+        gamewin = 3;
 
         disableResultScreen();
         checkWorld();
@@ -252,48 +254,64 @@ public class GameplayManager : MonoBehaviour
         if (selectedStageValue < 20)
         {
             if (selectedStageValue == 11)
-                tempQnA = QnA11;
+                copyQnA = QnA11;
             else if (selectedStageValue == 12)
-                tempQnA = QnA12;
+                copyQnA = QnA12;
             else if (selectedStageValue == 13)
-                tempQnA = QnA13;
+                copyQnA = QnA13;
             else
-                tempQnA = QnA14;
+                copyQnA = QnA14;
         }
         else if (selectedStageValue < 30)
         {
             if (selectedStageValue == 21)
-                tempQnA = QnA21;
+                copyQnA = QnA21;
             else if (selectedStageValue == 22)
-                tempQnA = QnA22;
+                copyQnA = QnA22;
             else if (selectedStageValue == 23)
-                tempQnA = QnA23;
+                copyQnA = QnA23;
             else
-                tempQnA = QnA24;
+                copyQnA = QnA24;
         }
         else if (selectedStageValue < 40)
         {
             if (selectedStageValue == 31)
-                tempQnA = QnA31;
+                copyQnA = QnA31;
             else if (selectedStageValue == 32)
-                tempQnA = QnA32;
+                copyQnA = QnA32;
             else if (selectedStageValue == 33)
-                tempQnA = QnA33;
+                copyQnA = QnA33;
             else
-                tempQnA = QnA34;
+                copyQnA = QnA34;
         }
         else
         {
             if (selectedStageValue == 41)
-                tempQnA = QnA41;
+                copyQnA = QnA41;
             else if (selectedStageValue == 42)
-                tempQnA = QnA42;
+                copyQnA = QnA42;
             else if (selectedStageValue == 43)
-                tempQnA = QnA43;
+                copyQnA = QnA43;
             else
-                tempQnA = QnA44;
+                copyQnA = QnA44;
         }
 
+        List<string> copyQnAList = new List<string>(copyQnA);
+
+        for (int i = 0; i < size; i++)
+        {
+
+            Debug.Log("Before Question " + i + " " + copyQnAList[i]);
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            int rand = Random.Range(0, copyQnAList.Count);
+            tempQnA.Add(copyQnAList[rand]);
+            copyQnAList.RemoveAt(rand);
+
+            Debug.Log("After Question " + i + " " + tempQnA[i]);
+        }
         generateQuestion();
     }
 
@@ -307,7 +325,7 @@ public class GameplayManager : MonoBehaviour
             size--;
 
 
-        for (index = 0; index < size; index++)
+        for (int index = 0; index < size; index++)
         {
 
             Debug.Log("current index " + index);

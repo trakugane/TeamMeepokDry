@@ -60,7 +60,8 @@ public class GameplayBossManager : MonoBehaviour
     public string[] QnA25 = new string[] { "46-32=", "14-5=", "75-2=", "61-39=", "9-5=" };
     public string[] QnA35 = new string[] { "4x12=", "14x3=", "2x7=", "6x9=", "9x5=" };
     public string[] QnA45 = new string[] { "95/5=", "36/2=", "45/5=", "56/7=", "9/3=" };
-    public string[] tempQnA;
+    public string[] copyQnA;
+    public List<string> tempQnA = new List<string>();
 
 
     public bool stillcontinuing = false;
@@ -85,15 +86,30 @@ public class GameplayBossManager : MonoBehaviour
     public void checkWorld(int selectedStage)
     {
         if (selectedStage == 15)
-            tempQnA = QnA15;
+            copyQnA = QnA15;
         else if (selectedStage == 25)
-            tempQnA = QnA25;
+            copyQnA = QnA25;
         else if (selectedStage == 35)
-            tempQnA = QnA35;
+            copyQnA = QnA35;
         else
-            tempQnA = QnA45;
+            copyQnA = QnA45;
 
-        Debug.Log(tempQnA);
+        List<string> copyQnAList = new List<string>(copyQnA);
+
+        for (int i = 0; i < size; i++)
+        {
+
+            Debug.Log("Before Question " + i + " " + copyQnAList[i]);
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            int rand = Random.Range(0, copyQnAList.Count);
+            tempQnA.Add(copyQnAList[rand]);
+            copyQnAList.RemoveAt(rand);
+
+            Debug.Log("After Question " + i + " " + tempQnA[i]);
+        }
         generateQuestion();
 
     }
@@ -109,19 +125,9 @@ public class GameplayBossManager : MonoBehaviour
 
         for (int index = 0; index < size; index++)
         {
-            Random random = new Random();
-            int value = Random.Range(0, tempQnA.Length);
-
-            Debug.Log("current index " + value);
-
-            currentQuestion = tempQnA[value];
+            currentQuestion = tempQnA[index];
             Debug.Log(currentQuestion);
             fetchQn();
-
-            //tempQnAList.Remove(value);
-            //tempQnA = list.ToArray();
-
-            Debug.Log("current array " + tempQnA);
         }
 
     }
@@ -420,7 +426,9 @@ public class GameplayBossManager : MonoBehaviour
         ScoreText.GetComponent<Text>().text = playerscore.ToString();
         count = 5;
         size = 5;
+        gamewin = 3;
 
+        tempQnA.Clear();
         checkWorld(selectedStageValue);
         disableResultScreen();
         timerCurrent = 6;
