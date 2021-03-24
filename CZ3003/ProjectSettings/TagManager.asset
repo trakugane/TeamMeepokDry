@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Timer
   - TagDB
+  - DBinit
   layers:
   - Default
   - TransparentFX

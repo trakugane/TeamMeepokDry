@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public static Player userPlayer;
 
     public string name;
+    public string email;
     public int currProg;
     public int accountType;
     public int stageValue;
@@ -45,9 +46,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currProg = 31; // Change this 11 to db.getCurrentProgress();
+        /*currProg = 31; // Change this 11 to db.getCurrentProgress();
         name = "John";
-        accountType = 1;
+        accountType = 1;*/
     }
 
     // Update is called once per frame

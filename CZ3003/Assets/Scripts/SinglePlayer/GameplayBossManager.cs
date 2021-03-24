@@ -391,8 +391,11 @@ public class GameplayBossManager : MonoBehaviour
     void updateUser()
     {
         if (selectedStageValue == Player.userPlayer.currProg)
+        {
             Player.userPlayer.incrementProgress();
-        // Send data to database here
+            // Send data to database here
+            Assets.DatabaseInit.dbInit.updateCurrentStage(Player.userPlayer.currProg, Player.userPlayer.email);
+        }
     }
 
     public void addBtnResultScreenListener()
@@ -419,6 +422,10 @@ public class GameplayBossManager : MonoBehaviour
     public void resetStage()
     {
         // Call Functions or write code here to reset stage here
+        // Check if player current progress is the same as selected stage, increment attempts
+        if ((Player.userPlayer.currProg == Player.userPlayer.selectedStageValue) && (gamewin == 2))
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player.userPlayer.currProg, Player.userPlayer.email);
+
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;
         curQn = 1;

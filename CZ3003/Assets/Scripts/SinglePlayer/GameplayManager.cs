@@ -181,8 +181,11 @@ public class GameplayManager : MonoBehaviour
     void updateUser()
     {
         if (selectedStageValue == Player.userPlayer.currProg)
+        {
             Player.userPlayer.incrementProgress();
-        // Send data to database here
+            // Send data to database here
+            Assets.DatabaseInit.dbInit.updateCurrentStage(Player.userPlayer.currProg, Player.userPlayer.email);
+        }
     }
 
     public void removeBtnNextStageListener()
@@ -209,6 +212,10 @@ public class GameplayManager : MonoBehaviour
         // i retrieve the next stage le
         setStageIndicator();
 
+        // Check if player current progress is the same as selected stage, increment attempts
+        if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player.userPlayer.currProg, Player.userPlayer.email);
+
         curQn = 1;
         playerscore = 0;
         ScoreText.GetComponent<Text>().text = playerscore.ToString();
@@ -230,6 +237,10 @@ public class GameplayManager : MonoBehaviour
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;
         resultPass = false;
+
+        // Check if player current progress is the same as selected stage, increment attempts
+        if ((Player.userPlayer.currProg == Player.userPlayer.selectedStageValue) && (gamewin == 2))
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player.userPlayer.currProg, Player.userPlayer.email);
 
         curQn = 1;
         playerscore = 0;

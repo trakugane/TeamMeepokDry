@@ -6,8 +6,10 @@ using System.Text.RegularExpressions;
 
 public class InputsValidation : MonoBehaviour
 {
-    DBManager validateDB = GameObject.FindGameObjectWithTag("TagDB").GetComponent<DBManager>();
+    //DBManager validateDB = GameObject.FindGameObjectWithTag("TagDB").GetComponent<DBManager>();
     // Start is called before the first frame update
+
+
     public bool checkEmail(string e)
     {
         bool isMail = false;
@@ -18,7 +20,7 @@ public class InputsValidation : MonoBehaviour
      + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
 				[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
      + @"([a-zA-Z0-9]+[\w-]+\.)+[a-zA-Z]{1}[a-zA-Z0-9-]{1,23})$", RegexOptions.IgnoreCase);
-
+    
         return isMail;
 
     }
@@ -36,18 +38,26 @@ public class InputsValidation : MonoBehaviour
             return "Password and Confirm Password does not match";
     }
 
-  
+ 
     public string checkDBEmail(string e)
     {
 
         if (checkEmail(e))
         {
+       
             //Check with Database if Email exist.
-            if (validateDB.checkEmail(e))
+            if (Assets.DatabaseInit.dbInit.checkEmailExists(e))
+            {
                 //Email Exist
                 return "Email is already in used.";
+            }
+              
+                
             else
+            {
                 return "";
+            }
+                
         }
 
 

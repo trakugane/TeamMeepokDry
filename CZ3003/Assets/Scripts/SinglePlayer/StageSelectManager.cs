@@ -54,26 +54,36 @@ public class StageSelectManager : MonoBehaviour
         if (btnName == "Btn_Stage1")
         {
             Player.userPlayer.selectedStageValue = stageValue + 1;
+            if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }
         if (btnName == "Btn_Stage2")
         {
             Player.userPlayer.selectedStageValue = stageValue + 2;
+            if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }  
         if (btnName == "Btn_Stage3")
         {
             Player.userPlayer.selectedStageValue = stageValue + 3;
+            if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }
         if (btnName == "Btn_Stage4")
         {
             Player.userPlayer.selectedStageValue = stageValue + 4;
+            if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }  
         if (btnName == "Btn_Stage5")
         {
             Player.userPlayer.selectedStageValue = stageValue + 5;
+            if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }
     }
@@ -148,4 +158,9 @@ public class StageSelectManager : MonoBehaviour
             imgMapLandColour.color = new Color32(235, 47, 47, 255);
     }
 
+    public void incrementCounter()
+    {
+        if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player.userPlayer.currProg, Player.userPlayer.email);
+    }
 }

@@ -67,10 +67,16 @@
     <Compile Include="Assets\Scripts\AlwaysOnLoad\DBManager.cs" />
     <Compile Include="Assets\Scripts\AlwaysOnLoad\Player.cs" />
     <Compile Include="Assets\Scripts\ButtonManager.cs" />
+    <Compile Include="Assets\Scripts\Database\DatabaseInit.cs" />
     <Compile Include="Assets\Scripts\InputsValidation.cs" />
     <Compile Include="Assets\Scripts\LoginValidate.cs" />
     <Compile Include="Assets\Scripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\ManagerNotInUse\QnScripts.cs" />
+    <Compile Include="Assets\Scripts\Models\GameHistory.cs" />
+    <Compile Include="Assets\Scripts\Models\PVP.cs" />
+    <Compile Include="Assets\Scripts\Models\SinglePlayer.cs" />
+    <Compile Include="Assets\Scripts\Models\StageProgress.cs" />
+    <Compile Include="Assets\Scripts\Models\User.cs" />
     <Compile Include="Assets\Scripts\RegisterValidate.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\GameplayBossManager.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\GameplayManager.cs" />
@@ -253,6 +259,30 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DnsClient">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.LibMongocrypt">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.LibMongocrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

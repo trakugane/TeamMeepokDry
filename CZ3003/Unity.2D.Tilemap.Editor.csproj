@@ -300,6 +300,30 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="DnsClient">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.LibMongocrypt">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/MongoDB.LibMongocrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Assets/Plugins/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:/Users/Traku/Documents/GitHub/TeamMeepokDry/CZ3003/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>

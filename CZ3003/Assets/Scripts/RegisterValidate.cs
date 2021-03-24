@@ -16,7 +16,7 @@ public class RegisterValidate : MonoBehaviour
     public void validateRegister()
     {
         validateInputs = new InputsValidation();
-        validateDB =GameObject.FindGameObjectWithTag("TagDB").GetComponent<DBManager>();
+       // validateDB =GameObject.FindGameObjectWithTag("TagDB").GetComponent<DBManager>();
         txtEmail = GameObject.Find("Email").GetComponent<InputField>();
         txtPassword = GameObject.Find("Password").GetComponent<InputField>();
         txtConfirmPassword = GameObject.Find("ConfirmPassword").GetComponent<InputField>();
@@ -45,8 +45,9 @@ public class RegisterValidate : MonoBehaviour
             {
                 //All Input Fields are Correct and Valid
                 //Send to DBManager for storing into database and return back to login page.
+                Assets.Models.User user = new Assets.Models.User(Password, null, 1, Name, Email, null);
 
-                if (validateDB.validateAccountCreation(Email, Password, Name))
+                if (Assets.DatabaseInit.dbInit.createUser(user))
                 {
                     txtErrorMessage.text = "Your Account Has Been Registered Successfully !";
                     System.Threading.Thread.Sleep(1000);

@@ -21,7 +21,6 @@ public class LoginValidate : MonoBehaviour
     {
         
         validateEmail = new InputsValidation();
-        validateLoginDB =GameObject.FindGameObjectWithTag("TagDB").GetComponent<DBManager>();
         txtErrorMessage = GameObject.Find("ErrorMessage").GetComponent<Text>();
         txtEmail = GameObject.Find("Email").GetComponent<InputField>();
         txtPassword = GameObject.Find("Password").GetComponent<InputField>();
@@ -43,11 +42,22 @@ public class LoginValidate : MonoBehaviour
             //Check if Email is a valid email address
             if (validateEmail.checkEmail(Email)){
                 //Valid Email Address, Call Database Method to Validate if record exist
-                if (validateLoginDB.validateUser(Email,Password)) 
+
+                bool validateUser = Assets.DatabaseInit.dbInit.verifyAccount(Email, Password);
+                //if the above method returns
+                object retrieveUser = null;
+                if (validateUser) 
                 {
-                    txtErrorMessage.text = "Login is Successful !";
-                    System.Threading.Thread.Sleep(1000);
-                    SceneManager.LoadScene("MainMenu");
+                    retrieveUser = Assets.DatabaseInit.dbInit.retrieveUser(Email);
+                    //Print out user data
+                    Assets.Models.User usr =(Assets.Models.User) retrieveUser;
+
+                    setupPlayerProfile(usr);
+                    Debug.Log(usr.name);
+                    Debug.Log(usr.email);
+                        txtErrorMessage.text = "Login is Successful !";
+                        System.Threading.Thread.Sleep(1000);
+                        SceneManager.LoadScene("MainMenu");
                 }
                 else
                 {
@@ -64,6 +74,14 @@ public class LoginValidate : MonoBehaviour
   
         }
 
+    }
+
+    public void setupPlayerProfile(Assets.Models.User usr)
+    {
+        Player.userPlayer.name = usr.name;
+        Player.userPlayer.accountType = usr.accountType;
+        Player.userPlayer.currProg = usr.spProgress.currStage;
+        Player.userPlayer.email = usr.email;
     }
 
    
