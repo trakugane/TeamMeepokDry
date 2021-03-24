@@ -113,7 +113,7 @@ namespace Assets
                 }
 
             }
-            SinglePlayer sp = new SinglePlayer(spList, 0);
+            SinglePlayer sp = new SinglePlayer(spList, 11);
             newUser.spProgress = sp;
             return newUser;
 
@@ -145,7 +145,7 @@ namespace Assets
         public Boolean updateCurrentStage(int Stage, String email)
         {
 
-            Stage += 6;
+            /*Stage += 6;*/
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
             var filter = Builders<User>.Filter.Where(x => x.email == email);
             var update = Builders<User>.Update.Set(x => x.spProgress.currStage, Stage);

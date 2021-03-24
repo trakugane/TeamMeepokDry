@@ -43,6 +43,9 @@ public class RegisterValidate : MonoBehaviour
             checkString = errorInputs;
             if (String.IsNullOrEmpty(checkString.Replace("\n","")))
             {
+               // Assets.Models.SinglePlayer singlePlayerObj = new Assets.Models.SinglePlayer();
+                //singlePlayerObj.currStage = 11;
+               
                 //All Input Fields are Correct and Valid
                 //Send to DBManager for storing into database and return back to login page.
                 Assets.Models.User user = new Assets.Models.User(Password, null, 1, Name, Email, null);

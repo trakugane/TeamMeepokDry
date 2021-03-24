@@ -29,10 +29,10 @@ public class InputsValidation : MonoBehaviour
         if (p == cP)
         {
             //Check if Password is in correct format.
-            if (p.Length > 8)
+            if (p.Length >= 8)
                 return "";
             else
-                return "Password contain less than 8 characters.";
+                return "Password must be at least 8 characters.";
         }
         else
             return "Password and Confirm Password does not match";
@@ -68,10 +68,10 @@ public class InputsValidation : MonoBehaviour
     public string checkName(string n)
     {
 
-        if (n.Length > 8)
+        if (n.Length >= 8)
             return "";
         else
-            return "Name contain less than 8 characters.";
+            return "Name must be at least 8 characters.";
     }
 
 
