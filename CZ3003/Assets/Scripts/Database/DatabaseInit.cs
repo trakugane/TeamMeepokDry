@@ -15,10 +15,11 @@ namespace Assets
     public class DatabaseInit : MonoBehaviour
     {
         public static DatabaseInit dbInit;
-        private static String databaseName = "UserData";//need to change depend on your databse name
+        private static String databaseName = "MPDry";//need to change depend on your databse name
         public static IMongoDatabase db;
         private static DatabaseInit instance = new DatabaseInit();
         private static MongoClient dc;
+
        
         private void Awake()
         {
@@ -38,6 +39,11 @@ namespace Assets
             dc = new MongoClient("mongodb+srv://cz3003:Password1@cluster0.sj9w8.mongodb.net/test?authSource=admin&replicaSet=atlas-bwa64u-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             db = dc.GetDatabase(databaseName);
             BsonClassMap.RegisterClassMap<User>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+            BsonClassMap.RegisterClassMap<Question>(cm =>
             {
                 cm.AutoMap();
                 cm.SetIgnoreExtraElements(true);
@@ -92,9 +98,17 @@ namespace Assets
         public Boolean createUser(User usr)
         {
             Boolean createUserSuccess = false;
-            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
             usr = initialiseStage(usr);
+            try
+            {
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
             u_collection.InsertOne(usr);
+            }
+            catch
+            {
+                return createUserSuccess;
+            }
+           
 
             createUserSuccess = true;
             return createUserSuccess;
@@ -252,5 +266,54 @@ namespace Assets
             return true;
         }
 
+        public Boolean addQuestion(Question qn)
+        {
+            Boolean createQnSuccess = false;
+            try { 
+            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+            qn_collection.InsertOne(qn);
+            
+
+            } catch  {
+                return createQnSuccess;
+
+            }
+            
+
+            createQnSuccess = true;
+            return createQnSuccess;
+        }
+        public List<Question> getQuestionsByCreator(String creatorEmail)
+        {
+            
+            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+            var p = Builders<Question>.Filter.Eq(x => x.creatorEmail, creatorEmail);
+            List<Question> lQn = new List<Question>();
+
+            lQn = qn_collection.Find(p).ToList();
+            return lQn;
+        }
+        public List<Question> retrieveAllQuestion()
+        {
+
+            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+            return qn_collection.Find(new BsonDocument()).ToList();
+
+
+
+        }
+
+        public Boolean deleteQn(String qnId)
+        {
+            Boolean deleteStatus = false;
+            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+            var p = Builders<Question>.Filter.Eq(x => x.id, ObjectId.Parse(qnId));
+            long deleteCount = qn_collection.DeleteOne(p).DeletedCount;
+            if (deleteCount == 1)
+            {
+                return deleteStatus = true;
+            }
+            return deleteStatus;
+        }
     }
 }
