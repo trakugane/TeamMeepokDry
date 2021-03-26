@@ -19,7 +19,7 @@ public class WorldSelectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currProg = Player.userPlayer.currProg;
+        currProg = Player1.userPlayer.currProg;
         addBtnWorldListener();
         disableAllWorlds();
         if (loadWorld(currProg) == true)
@@ -52,15 +52,15 @@ public class WorldSelectManager : MonoBehaviour
         /*Debug.Log(EventSystem.current.currentSelectedGameObject.name);*/
         /*Debug.Log(btnName == "BtnWorld1");*/
         if (btnName == "BtnWorld1")   
-            Player.userPlayer.stageValue = 15;
+            Player1.userPlayer.stageValue = 15;
         if (btnName == "BtnWorld2")
-            Player.userPlayer.stageValue = 25;
+            Player1.userPlayer.stageValue = 25;
         if (btnName == "BtnWorld3")
-            Player.userPlayer.stageValue = 35;
+            Player1.userPlayer.stageValue = 35;
         if (btnName == "BtnWorld4")
-            Player.userPlayer.stageValue = 45;
+            Player1.userPlayer.stageValue = 45;
         if (btnName == "BtnWorld5")
-            Player.userPlayer.stageValue = 55;
+            Player1.userPlayer.stageValue = 55;
 
         
 

@@ -14,11 +14,12 @@ public class MainMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        accountType = Player.userPlayer.accountType;
+        /*accountType = Player.userPlayer.accountType;
         Debug.Log(Player.userPlayer.accountType);
         Debug.Log(Player.userPlayer.currProg);
         Debug.Log(Player.userPlayer.name);
-        checkAccountType(accountType);
+        checkAccountType(accountType);*/
+        checkAccountType(Player1.userPlayer.accountType);
     }
 
     // Update is called once per frame

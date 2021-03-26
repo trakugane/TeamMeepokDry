@@ -5,24 +5,26 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
-
+using Assets.Models;
 
 public class DBManager : MonoBehaviour
 {
 
     public static DBManager dbm;
 
-    public InputField Username;
-    public InputField Password;
+    public string Username;
+    public string Password;
     /*AccountManager am;*/
 
-    public InputField email;
-    public InputField password;
-    public InputField confirmPassword;
-    public InputField personalName;
+    public string email;
+    public string password;
+    public string personalName;
+    Assets.DatabaseInit dbInit;
+
 
     private void Awake()
     {
+         
         if (DBManager.dbm == null)
         {
             DBManager.dbm = this;
@@ -35,6 +37,7 @@ public class DBManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dbInit = GameObject.FindGameObjectWithTag("DBinit").GetComponent<Assets.DatabaseInit>();
         /*am = gameObject.AddComponent<AccountManager>();*/
         // AccountManager.accMgr.validateUser();
     }
@@ -47,12 +50,13 @@ public class DBManager : MonoBehaviour
 
     public void checkLogin(string sceneName)
     {
-        Debug.Log("Login Button Pressed!");
         // Verify if username in database and password is correct
-        if (validateUser(Username, Password) == true)
+        
+
+        /*if (validateUser(Username, Password) == true)
         {
             SceneManager.LoadScene(sceneName);
-            /*if (retrieveData(Username.text.ToString(), Password.text.ToString()) == true)
+            *//*if (retrieveData(Username.text.ToString(), Password.text.ToString()) == true)
             {
                 *//*Debug.Log(PlayerPrefs.GetString("name"));*//*
 
@@ -61,55 +65,48 @@ public class DBManager : MonoBehaviour
             else
             {
                 // Display Error (Account data not retrievable)
-            }*/
+            }*//*
         }
         else
         {
             // Display Error (Account not valid)
-        }
+        }*/
     }
 
-    public void checkRegister(string sceneName)
+    public bool checkRegister(string sceneName)
     {
         Debug.Log("Register Button Pressed!");
-        int codeMsg = validateAccountCreation(email, password, confirmPassword, personalName);
-        if (codeMsg == 0)
-            SceneManager.LoadScene(sceneName);
+        bool codeMsg = validateAccountCreation(email, password, personalName);
+        if (codeMsg)
+            return true;
         else
         {
             // Need display error message to UI (10/3/21)
-            Debug.Log("Error: Account Creation");
-            if (codeMsg == 1)
-            {
-                Debug.Log("Error: Email already exists");
-            }
-            else if (codeMsg == 2)
-            {
-                Debug.Log("Error: Passwords don't match");
-            }
-            else if (codeMsg == 3)
-            {
-                Debug.Log("Error: Storing in database unsuccessful");
-            }
-            else
-            {
-                Debug.Log("Error: Unknown Error");
-            }
+            return false;
         }
+  
 
     }
 
 
-    public bool validateUser(InputField email, InputField password)
+    public object validateUser(string email, string password)
     {
-        // If username in database and password is correct, return true
-        /*if (db.checkEmailExist(email.text, password.text) == true)
-            // Set up here
-            return false*/
-        // Else, Return false
-        Debug.Log("Validated");
 
-        return true;
+        //Call DatabaseInit verifyAccount method which returns boolean
+        //if Verify Account true then call DatabaseInit retireveUser method which returns Task<User> object
+        bool vAccount = dbInit.verifyAccount(email, password);
+
+       if (vAccount)
+        {
+            return dbInit.retrieveUser(email);
+        }
+       else
+        {
+            return null;
+        }
+        
+
+
     }
 
     /*public bool retrieveData(string user, string password)
@@ -129,27 +126,33 @@ public class DBManager : MonoBehaviour
         return true;
     }*/
 
-    public int validateAccountCreation(InputField email, InputField password, InputField confirmPassword, InputField personalName)
+    public bool validateAccountCreation(string email, string password, string personalName)
     {
-        // Check Email with database
-        // Check Password & Confirm Password is the same
-        if (password.text.ToString() != confirmPassword.text.ToString())
-            return 2;
+        // Call createUser(User usr) method in DatabaseInit which will return boolean
+        //Method with the following parameters: Password (String) , SinglePlayer spProgress (Object) , accountType (int), name (String),email(String), mpStatus (PVP)
+        Debug.Log("Test");
+        User user = new User(password,null,1,personalName,email,null);
+        return dbInit.createUser(user);
 
-        // Store all details into database
-        int currProg = 11;
-        // Check if email is student or teacher email
-        int accountType = 0;
-        // int tutorial = 0; check if havent done tutorial?
-
-        // If store unsuccessful, return 3
-
-
-        /*Debug.Log("Error: Account Creation");*/
-        return 0;
     }
 
 
+    public bool checkEmail(string email)
+    {
+        // Call DatabaseInit  checkEmailExist(email)
+        bool EmailExist =dbInit.checkEmailExists(email);
 
+        if (EmailExist)
+        {
+            Debug.Log("Email exists");
+            return true;
+        }
+        else
+        {
+            Debug.Log("Email does not exists");
+            return false;
+        }
+
+    }
 
 }

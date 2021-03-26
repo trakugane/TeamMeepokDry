@@ -20,8 +20,8 @@ public class StageSelectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        stageVal = Player.userPlayer.stageValue;
-        currProg = Player.userPlayer.currProg;
+        stageVal = Player1.userPlayer.stageValue;
+        currProg = Player1.userPlayer.currProg;
 
         changeStageColor(stageVal);
         addBtnStageListener();
@@ -53,27 +53,37 @@ public class StageSelectManager : MonoBehaviour
         int stageValue = (stageVal / 10) * 10;
         if (btnName == "Btn_Stage1")
         {
-            Player.userPlayer.selectedStageValue = stageValue + 1;
+            Player1.userPlayer.selectedStageValue = stageValue + 1;
+            if (Player1.userPlayer.currProg == Player1.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }
         if (btnName == "Btn_Stage2")
         {
-            Player.userPlayer.selectedStageValue = stageValue + 2;
+            Player1.userPlayer.selectedStageValue = stageValue + 2;
+            if (Player1.userPlayer.currProg == Player1.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }  
         if (btnName == "Btn_Stage3")
         {
-            Player.userPlayer.selectedStageValue = stageValue + 3;
+            Player1.userPlayer.selectedStageValue = stageValue + 3;
+            if (Player1.userPlayer.currProg == Player1.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }
         if (btnName == "Btn_Stage4")
         {
-            Player.userPlayer.selectedStageValue = stageValue + 4;
+            Player1.userPlayer.selectedStageValue = stageValue + 4;
+            if (Player1.userPlayer.currProg == Player1.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }  
         if (btnName == "Btn_Stage5")
         {
-            Player.userPlayer.selectedStageValue = stageValue + 5;
+            Player1.userPlayer.selectedStageValue = stageValue + 5;
+            if (Player1.userPlayer.currProg == Player1.userPlayer.selectedStageValue)
+                incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
         }
     }
@@ -146,5 +156,11 @@ public class StageSelectManager : MonoBehaviour
             imgMapLandColour.color = new Color32(250, 100, 0, 255);
         if (stageValue == 55)
             imgMapLandColour.color = new Color32(235, 47, 47, 255);
+    }
+
+    public void incrementCounter()
+    {
+        if (Player1.userPlayer.currProg == Player1.userPlayer.selectedStageValue)
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player1.userPlayer.currProg, Player1.userPlayer.email);
     }
 }
