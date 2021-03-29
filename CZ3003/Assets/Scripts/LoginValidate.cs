@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
-
-
+using System.Threading.Tasks;
 
 public class LoginValidate : MonoBehaviour
 {
@@ -50,12 +49,12 @@ public class LoginValidate : MonoBehaviour
                 {
                     retrieveUser = Assets.DatabaseInit.dbInit.retrieveUser(Email);
                     //Print out user data
-                   /* Assets.Models.User usr =(Assets.Models.User) retrieveUser;
-
-                    setupPlayerProfile(usr);*/
+                    Assets.Models.User usr = (Assets.Models.User)retrieveUser;
+                    // user = await getus()er
+                    setupPlayerProfile(usr);
                     //Debug.Log(usr.name);
                     //Debug.Log(usr.email);
-                        txtErrorMessage.text = "Login is Successful !";
+                    txtErrorMessage.text = "Login is Successful !";
                         System.Threading.Thread.Sleep(1000);
                         SceneManager.LoadScene("MainMenu");
                 }
@@ -76,12 +75,14 @@ public class LoginValidate : MonoBehaviour
 
     }
 
-    public void setupPlayerProfile(Assets.Models.User usr)
+    public bool setupPlayerProfile(Assets.Models.User usr)
     {
-        Player.userPlayer.name = usr.name;
-        Player.userPlayer.accountType = usr.accountType;
-        Player.userPlayer.currProg = usr.spProgress.currStage;
-        Player.userPlayer.email = usr.email;
+        UserPlayer.userPlayer.userName = usr.name;
+        UserPlayer.userPlayer.accountType = usr.accountType;
+        UserPlayer.userPlayer.currProg = usr.spProgress.currStage;
+        UserPlayer.userPlayer.email = usr.email;
+
+        return true;
     }
 
    

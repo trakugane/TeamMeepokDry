@@ -70,7 +70,7 @@ public class GameplayBossManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selectedStageValue = Player.userPlayer.selectedStageValue;
+        selectedStageValue = UserPlayer.userPlayer.selectedStageValue;
         Debug.Log("selectedStageValue" + selectedStageValue);
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;
@@ -390,11 +390,11 @@ public class GameplayBossManager : MonoBehaviour
 
     void updateUser()
     {
-        if (selectedStageValue == Player.userPlayer.currProg)
+        if (selectedStageValue == UserPlayer.userPlayer.currProg)
         {
-            Player.userPlayer.incrementProgress();
+            UserPlayer.userPlayer.incrementProgress();
             // Send data to database here
-            Assets.DatabaseInit.dbInit.updateCurrentStage(Player.userPlayer.currProg, Player.userPlayer.email);
+            Assets.DatabaseInit.dbInit.updateCurrentStage(UserPlayer.userPlayer.currProg, UserPlayer.userPlayer.email);
         }
     }
 
@@ -423,8 +423,8 @@ public class GameplayBossManager : MonoBehaviour
     {
         // Call Functions or write code here to reset stage here
         // Check if player current progress is the same as selected stage, increment attempts
-        if ((Player.userPlayer.currProg == Player.userPlayer.selectedStageValue) && (gamewin == 2))
-            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player.userPlayer.currProg, Player.userPlayer.email);
+        if ((UserPlayer.userPlayer.currProg == UserPlayer.userPlayer.selectedStageValue) && (gamewin == 2))
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(UserPlayer.userPlayer.currProg, UserPlayer.userPlayer.email);
 
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;

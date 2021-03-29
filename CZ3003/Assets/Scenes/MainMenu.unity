@@ -1817,7 +1817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1820f2be040d590459afc74029045b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FriendsText: {fileID: 0}
 --- !u!4 &1264047298
 Transform:
   m_ObjectHideFlags: 0
@@ -1993,10 +1992,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1444177251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91ba3e2b62881140b9f8ecbf9f66d66, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c21eb131b0bf4446964cdb3362e2d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  userName: 
   email: 
   currProg: 0
   accountType: 0

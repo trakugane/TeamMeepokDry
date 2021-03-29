@@ -26,8 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PVP/PVPHorseGameplay.unity
     guid: 5df6ec589f411b6478d005281b0d8c89
-  - enabled: 1
-    path: Assets/Scenes/PVP/PVPHorseWaitRoom.unity
+  - enabled: 0
+    path: 
     guid: 4ec5bc7e912072a4fa57ee4b3f3ca8ce
   - enabled: 1
     path: Assets/Scenes/PVP/PVPLastGameplay.unity
@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PVP/PVPLastWaitRoom.unity
     guid: fc11c1ead55539d449199516b0ddae8f
+  - enabled: 1
+    path: Assets/Scenes/Teachers/DeleteQuestion.unity
+    guid: 66b3214c80633764d976733b494e2dcc
   - enabled: 1
     path: Assets/Scenes/Teachers/SummaryReportIndividual.unity
     guid: 3b5a1ea9c3d8d704f9889efc04f6791b

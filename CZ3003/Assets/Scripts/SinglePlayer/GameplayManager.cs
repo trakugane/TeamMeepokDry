@@ -91,7 +91,7 @@ public class GameplayManager : MonoBehaviour
     void Start()
     {
         /*Debug.Log(Qntxt.GetComponent<Text>().text);*/
-        selectedStageValue = Player.userPlayer.selectedStageValue;
+        selectedStageValue = UserPlayer.userPlayer.selectedStageValue;
         Debug.Log("selectedStageValue: " + selectedStageValue);
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         print(GameObject.Find("ScoreText").GetComponent<Text>().text);
@@ -180,11 +180,11 @@ public class GameplayManager : MonoBehaviour
 
     void updateUser()
     {
-        if (selectedStageValue == Player.userPlayer.currProg)
+        if (selectedStageValue == UserPlayer.userPlayer.currProg)
         {
-            Player.userPlayer.incrementProgress();
+            UserPlayer.userPlayer.incrementProgress();
             // Send data to database here
-            Assets.DatabaseInit.dbInit.updateCurrentStage(Player.userPlayer.currProg, Player.userPlayer.email);
+            Assets.DatabaseInit.dbInit.updateCurrentStage(UserPlayer.userPlayer.currProg, UserPlayer.userPlayer.email);
         }
     }
 
@@ -203,8 +203,8 @@ public class GameplayManager : MonoBehaviour
 
     public void setNextStage()
     {
-        Player.userPlayer.incrementStageValue();
-        selectedStageValue = Player.userPlayer.selectedStageValue;
+        UserPlayer.userPlayer.incrementStageValue();
+        selectedStageValue = UserPlayer.userPlayer.selectedStageValue;
         Debug.Log("selectedStageValue" + selectedStageValue);
         GameObject.Find("CurrentQuestionNoText").GetComponent<Text>().text = (1).ToString();
         playingGame = true;
@@ -213,8 +213,8 @@ public class GameplayManager : MonoBehaviour
         setStageIndicator();
 
         // Check if player current progress is the same as selected stage, increment attempts
-        if (Player.userPlayer.currProg == Player.userPlayer.selectedStageValue)
-            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player.userPlayer.currProg, Player.userPlayer.email);
+        if (UserPlayer.userPlayer.currProg == UserPlayer.userPlayer.selectedStageValue)
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(UserPlayer.userPlayer.currProg, UserPlayer.userPlayer.email);
 
         curQn = 1;
         playerscore = 0;
@@ -239,8 +239,8 @@ public class GameplayManager : MonoBehaviour
         resultPass = false;
 
         // Check if player current progress is the same as selected stage, increment attempts
-        if ((Player.userPlayer.currProg == Player.userPlayer.selectedStageValue) && (gamewin == 2))
-            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(Player.userPlayer.currProg, Player.userPlayer.email);
+        if ((UserPlayer.userPlayer.currProg == UserPlayer.userPlayer.selectedStageValue) && (gamewin == 2))
+            Assets.DatabaseInit.dbInit.incrementCurrentStageAttempt(UserPlayer.userPlayer.currProg, UserPlayer.userPlayer.email);
 
         curQn = 1;
         playerscore = 0;

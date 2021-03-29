@@ -19,7 +19,9 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log(Player.userPlayer.currProg);
         Debug.Log(Player.userPlayer.name);
         checkAccountType(accountType);*/
-        checkAccountType(Player.userPlayer.accountType);
+        Debug.Log(UserPlayer.userPlayer.accountType);
+        Debug.Log(UserPlayer.userPlayer.currProg);
+        checkAccountType(UserPlayer.userPlayer.accountType);
     }
 
     // Update is called once per frame
