@@ -1735,8 +1735,8 @@ MonoBehaviour:
   - 32/4=
   - 96/12=
   - 88/8=
+  copyQnA: []
   tempQnA: []
-  index: 0
   currentQuestion: 
   ans: 0
   operandchar: 0

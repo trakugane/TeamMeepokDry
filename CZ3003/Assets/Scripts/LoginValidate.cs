@@ -50,11 +50,11 @@ public class LoginValidate : MonoBehaviour
                 {
                     retrieveUser = Assets.DatabaseInit.dbInit.retrieveUser(Email);
                     //Print out user data
-                    Assets.Models.User usr =(Assets.Models.User) retrieveUser;
+                   /* Assets.Models.User usr =(Assets.Models.User) retrieveUser;
 
-                    setupPlayerProfile(usr);
-                    Debug.Log(usr.name);
-                    Debug.Log(usr.email);
+                    setupPlayerProfile(usr);*/
+                    //Debug.Log(usr.name);
+                    //Debug.Log(usr.email);
                         txtErrorMessage.text = "Login is Successful !";
                         System.Threading.Thread.Sleep(1000);
                         SceneManager.LoadScene("MainMenu");
