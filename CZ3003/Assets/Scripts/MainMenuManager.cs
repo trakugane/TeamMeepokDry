@@ -7,9 +7,10 @@ using UnityEngine.Events;
 public class MainMenuManager : MonoBehaviour
 {
     public int accountType;
-    public Button btnViewStats;
+    /*public Button btnViewStats;
     public Button btnSummaryReport;
-    public Button btnEditQuestions;
+    public Button btnEditQuestions;*/
+    public GameObject btnMainMenuTeacher;
 
     // Start is called before the first frame update
     void Start()
@@ -34,16 +35,19 @@ public class MainMenuManager : MonoBehaviour
     {
         if (accType == 0)
         {
-            btnViewStats.gameObject.SetActive(false);
+            /*btnViewStats.gameObject.SetActive(false);
             btnSummaryReport.gameObject.SetActive(false);
-            btnEditQuestions.gameObject.SetActive(false);
-            
+            btnEditQuestions.gameObject.SetActive(false);*/
+            btnMainMenuTeacher.SetActive(false);
+
+
         }
         else if (accType == 1)
         {
-            btnViewStats.gameObject.SetActive(true);
+            /*btnViewStats.gameObject.SetActive(true);
             btnSummaryReport.gameObject.SetActive(true);
-            btnEditQuestions.gameObject.SetActive(true);
+            btnEditQuestions.gameObject.SetActive(true);*/
+            btnMainMenuTeacher.SetActive(true);
         }
     }
 }

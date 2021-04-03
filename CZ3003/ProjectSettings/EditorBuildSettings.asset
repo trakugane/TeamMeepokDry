@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/StageSelectWorld3.unity
     guid: e35c87638bbdcc140b4bae7ea1250656
   - enabled: 1
-    path: Assets/Scenes/Teachers/EditQuestion.unity
+    path: Assets/Scenes/Teachers/AddEditAssignment.unity
     guid: 0dc5e541f7ab87347877f8586ffbf2b0
   - enabled: 1
     path: Assets/Scenes/PVP/PVPHorseGameplay.unity
@@ -39,13 +39,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Teachers/DeleteQuestion.unity
     guid: 66b3214c80633764d976733b494e2dcc
   - enabled: 1
-    path: Assets/Scenes/Teachers/SummaryReportIndividual.unity
+    path: Assets/Scenes/Teachers/NotInUse/SummaryReportIndividual.unity
     guid: 3b5a1ea9c3d8d704f9889efc04f6791b
   - enabled: 1
-    path: Assets/Scenes/Teachers/SummaryReportOverall.unity
+    path: Assets/Scenes/Teachers/NotInUse/SummaryReportOverall.unity
     guid: 475070bc54dd2594385e8526612bc014
   - enabled: 1
-    path: Assets/Scenes/Teachers/ViewStatisticsIndividual.unity
+    path: Assets/Scenes/Teachers/NotInUse/ViewStatisticsIndividual.unity
     guid: 37f7367299d811a45b018fb14518005d
   - enabled: 1
     path: Assets/Scenes/Teachers/ViewStatisticsOverall.unity
@@ -69,10 +69,10 @@ EditorBuildSettings:
     path: Assets/Scenes/PVP/PVPStartScreen.unity
     guid: c7810425d98ee5b4ea5c222183848354
   - enabled: 1
-    path: Assets/Scenes/Teachers/SummaryReportSelect.unity
+    path: Assets/Scenes/Teachers/NotInUse/SummaryReportSelect.unity
     guid: edcd1f78beda78f4fbc0b16461e97ee2
   - enabled: 1
-    path: Assets/Scenes/Teachers/ViewStatisticsSelect.unity
+    path: Assets/Scenes/Teachers/NotInUse/ViewStatisticsSelect.unity
     guid: fcc1effaff04cfd4481890d7337156ee
   - enabled: 1
     path: Assets/Scenes/SinglePlayer/GameplayBoss.unity
@@ -83,4 +83,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Start/Register.unity
     guid: e583e6e3903d1b54dabe0d01bda27a60
+  - enabled: 1
+    path: Assets/Scenes/Teachers/AssignmentReport.unity
+    guid: a4891235bb354ba499f914e111be516b
+  - enabled: 1
+    path: Assets/Scenes/Teachers/MainMenuTeacher.unity
+    guid: fd3c70bb93960ba4c9f908425bb876a9
   m_configObjects: {}

@@ -13,7 +13,12 @@ public class WorldSelectManager : MonoBehaviour
     public Button btnWorld2;
     public Button btnWorld3;
     public Button btnWorld4;
-    public Button btnWorld5;
+    /*public Button btnWorld5;*/
+    public GameObject doorWorld1;
+    public GameObject doorWorld2;
+    public GameObject doorWorld3;
+    public GameObject doorWorld4;
+    /*public GameObject doorWorld5;*/
 
 
     // Start is called before the first frame update
@@ -41,7 +46,7 @@ public class WorldSelectManager : MonoBehaviour
         btnWorld2.onClick.AddListener(setStageValue);
         btnWorld3.onClick.AddListener(setStageValue);
         btnWorld4.onClick.AddListener(setStageValue);
-        btnWorld5.onClick.AddListener(setStageValue);
+        /*btnWorld5.onClick.AddListener(setStageValue);*/
     }
 
     public void setStageValue()
@@ -59,8 +64,8 @@ public class WorldSelectManager : MonoBehaviour
             UserPlayer.userPlayer.stageValue = 35;
         if (btnName == "BtnWorld4")
             UserPlayer.userPlayer.stageValue = 45;
-        if (btnName == "BtnWorld5")
-            UserPlayer.userPlayer.stageValue = 55;
+        /*if (btnName == "BtnWorld5")
+            UserPlayer.userPlayer.stageValue = 55;*/
 
         
 
@@ -72,12 +77,15 @@ public class WorldSelectManager : MonoBehaviour
         if ((currentProgress > 10) && (currentProgress <= 15))
         {
             btnWorld1.interactable = true;
+            doorWorld1.SetActive(false);
             return true;
         }
         else if ((currentProgress > 20) && (currentProgress <= 25))
         {
             btnWorld1.interactable = true;
             btnWorld2.interactable = true;
+            doorWorld1.SetActive(false);
+            doorWorld2.SetActive(false);
             return true;
         }
         else if ((currentProgress > 30) && (currentProgress <= 35))
@@ -85,6 +93,9 @@ public class WorldSelectManager : MonoBehaviour
             btnWorld1.interactable = true;
             btnWorld2.interactable = true;
             btnWorld3.interactable = true;
+            doorWorld1.SetActive(false);
+            doorWorld2.SetActive(false);
+            doorWorld3.SetActive(false);
             return true;
         }
         else if ((currentProgress > 40) && (currentProgress <= 45))
@@ -93,9 +104,13 @@ public class WorldSelectManager : MonoBehaviour
             btnWorld2.interactable = true;
             btnWorld3.interactable = true;
             btnWorld4.interactable = true;
+            doorWorld1.SetActive(false);
+            doorWorld2.SetActive(false);
+            doorWorld3.SetActive(false);
+            doorWorld4.SetActive(false);
             return true;
         }
-        else if ((currentProgress > 50) && (currentProgress <= 55))
+        /*else if ((currentProgress > 50) && (currentProgress <= 55))
         {
             btnWorld1.interactable = true;
             btnWorld2.interactable = true;
@@ -103,7 +118,7 @@ public class WorldSelectManager : MonoBehaviour
             btnWorld4.interactable = true;
             btnWorld5.interactable = true;
             return true;
-        }
+        }*/
 
         return false;
             
@@ -115,6 +130,6 @@ public class WorldSelectManager : MonoBehaviour
         btnWorld2.interactable = false;
         btnWorld3.interactable = false;
         btnWorld4.interactable = false;
-        btnWorld5.interactable = false;
+        /*btnWorld5.interactable = false;*/
     }
 }
