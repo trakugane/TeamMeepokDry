@@ -38,6 +38,8 @@ namespace Assets
             //dc = new MongoClient("mongodb+srv://AllInOneUser:AllInOneAdmin@university.0om1z.mongodb.net/University?retryWrites=true&w=majority");
             dc = new MongoClient("mongodb+srv://cz3003:Password1@cluster0.sj9w8.mongodb.net/test?authSource=admin&replicaSet=atlas-bwa64u-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             db = dc.GetDatabase(databaseName);
+            
+            
             BsonClassMap.RegisterClassMap<User>(cm =>
             {
                 cm.AutoMap();
@@ -48,6 +50,7 @@ namespace Assets
                 cm.AutoMap();
                 cm.SetIgnoreExtraElements(true);
             });
+
         }
       
         public static DatabaseInit getInstance()
@@ -302,6 +305,28 @@ namespace Assets
 
 
         }
+        public async Task<List<Question>> retrieveAllQuestions()
+        {
+
+            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+            var allQuestionsTask = await qn_collection.Find(new BsonDocument()).ToListAsync();
+            List<Question> questions = new List<Question>();
+            foreach(var question in allQuestionsTask.ToList())
+            {
+                questions.Add(question);
+            }
+            return  questions;
+
+        }
+
+        /*private Assets.Models.Question Deserialize(string rawJson)
+        {
+            var question = new Question();
+
+            
+
+            return question;
+        }*/
 
         public Boolean deleteQn(String qnId)
         {
