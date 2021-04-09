@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/StageSelectWorld3.unity
     guid: e35c87638bbdcc140b4bae7ea1250656
   - enabled: 1
-    path: Assets/Scenes/Teachers/AddEditAssignment.unity
+    path: Assets/Scenes/Teachers/AddAssignment.unity
     guid: 0dc5e541f7ab87347877f8586ffbf2b0
   - enabled: 1
     path: Assets/Scenes/PVP/PVPHorseGameplay.unity
@@ -89,4 +89,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Teachers/MainMenuTeacher.unity
     guid: fd3c70bb93960ba4c9f908425bb876a9
+  - enabled: 1
+    path: Assets/Scenes/GameplayAssignment.unity
+    guid: c9a5fdca07511e14daa721aadc6f2abe
   m_configObjects: {}

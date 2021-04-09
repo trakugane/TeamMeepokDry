@@ -131,7 +131,7 @@ public class DBManager : MonoBehaviour
         // Call createUser(User usr) method in DatabaseInit which will return boolean
         //Method with the following parameters: Password (String) , SinglePlayer spProgress (Object) , accountType (int), name (String),email(String), mpStatus (PVP)
         Debug.Log("Test");
-        User user = new User(password,null,1,personalName,email,null);
+        User user = new User(password,null,1,personalName,email,null, new List<string>());
         return dbInit.createUser(user);
 
     }

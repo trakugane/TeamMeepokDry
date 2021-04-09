@@ -38,14 +38,17 @@ namespace Assets
             //dc = new MongoClient("mongodb+srv://AllInOneUser:AllInOneAdmin@university.0om1z.mongodb.net/University?retryWrites=true&w=majority");
             dc = new MongoClient("mongodb+srv://cz3003:Password1@cluster0.sj9w8.mongodb.net/test?authSource=admin&replicaSet=atlas-bwa64u-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             db = dc.GetDatabase(databaseName);
-            
-            
             BsonClassMap.RegisterClassMap<User>(cm =>
             {
                 cm.AutoMap();
                 cm.SetIgnoreExtraElements(true);
             });
             BsonClassMap.RegisterClassMap<Question>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+            BsonClassMap.RegisterClassMap<Assignment>(cm =>
             {
                 cm.AutoMap();
                 cm.SetIgnoreExtraElements(true);
@@ -102,6 +105,7 @@ namespace Assets
         {
             Boolean createUserSuccess = false;
             usr = initialiseStage(usr);
+            usr = initialisePvP(usr);
             try
             {
             IMongoCollection<User> u_collection = db.GetCollection<User>("User");
@@ -135,7 +139,14 @@ namespace Assets
             return newUser;
 
         }
-
+        public User initialisePvP(User newUser)
+        {
+            PVP tp = new PVP();
+            tp.AccumulatedPoints = 0;
+            tp.PastGame = new List<GameHistory>();
+            newUser.mpStatus = tp;
+            return newUser;
+        }
         // Method to delete user through his email
         public Boolean deleteUser(String email)
         {
@@ -275,6 +286,8 @@ namespace Assets
             try { 
             IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
             qn_collection.InsertOne(qn);
+               
+               //qn_collection.InsertMany(lqn);
             
 
             } catch  {
@@ -305,29 +318,16 @@ namespace Assets
 
 
         }
-        public async Task<List<Question>> retrieveAllQuestions()
+        public List<Question> getQuestionsByType(String qnType)
         {
 
             IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
-            var allQuestionsTask = await qn_collection.Find(new BsonDocument()).ToListAsync();
-            List<Question> questions = new List<Question>();
-            foreach(var question in allQuestionsTask.ToList())
-            {
-                questions.Add(question);
-            }
-            return  questions;
+            var p = Builders<Question>.Filter.Eq(x => x.questionType, qnType);
+            List<Question> lQn = new List<Question>();
 
+            lQn = qn_collection.Find(p).ToList();
+            return lQn;
         }
-
-        /*private Assets.Models.Question Deserialize(string rawJson)
-        {
-            var question = new Question();
-
-            
-
-            return question;
-        }*/
-
         public Boolean deleteQn(String qnId)
         {
             Boolean deleteStatus = false;
@@ -339,6 +339,186 @@ namespace Assets
                 return deleteStatus = true;
             }
             return deleteStatus;
+        }
+
+        public List<String> retrieveAllStudentEmail()
+        {
+            List<String> un = new List<string>();
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var p = Builders<User>.Projection.Include(x => x.email);
+            var filter = Builders<User>.Filter.Eq(u => u.accountType, 0);
+            List<User> aun = u_collection.Find(filter).Project<User>(p).ToList();
+            foreach (User c in aun)
+            {
+                un.Add(c.email);
+            }
+            return un;
+        }
+
+        //add new assignment
+        public Boolean createAssignment(Assignment asn)
+        {
+            Boolean createAsnSuccess = false;
+            try
+            {
+                IMongoCollection<Assignment> asn_collection = db.GetCollection<Assignment>("Assignment");
+                asn_collection.InsertOne(asn);
+                createAsnSuccess = true;
+                return createAsnSuccess;
+            }
+            catch
+            {
+                return createAsnSuccess;
+
+            }
+
+
+            
+            
+        }
+        public List<Assignment> getAllAssignmentStaff()
+        {
+            IMongoCollection<Assignment> a_collection = db.GetCollection<Assignment>("Assignment");
+            return a_collection.Find(new BsonDocument()).ToList();
+        }
+
+      
+        //first time
+        public List<AssignmentRecord> initialiseAssignmentStudent(List<String> stnEmail)
+        {
+
+            List<AssignmentRecord> asrList = new List<AssignmentRecord>();
+            //create AssignmentRecord object and push to mongo
+            foreach (String stn in stnEmail) {
+                AssignmentRecord asr = new AssignmentRecord(-1, stn);
+                asrList.Add(asr);
+            }
+            
+            return asrList;
+
+            
+        }
+
+        public Boolean assignAllStudentAssgn(String asnName)
+        {
+            Boolean assignStatus = false;
+
+            //get all student email. 
+            List<String> stnEmilList = retrieveAllStudentEmail();
+            //initialiseAssignmentStudent (for assignmentrecord in assignment)
+            List<AssignmentRecord> asrList = initialiseAssignmentStudent(stnEmilList);
+
+            try
+            {
+                //update Assignment with record
+                IMongoCollection<Assignment> a_collection = db.GetCollection<Assignment>("Assignment");
+                var filter = Builders<Assignment>.Filter.Where(x => x.assignmentName == asnName);
+                var update = Builders<Assignment>.Update.Set(x => x.result, asrList);
+                a_collection.FindOneAndUpdate(filter, update);
+
+                //require user.AssignmentStatus=new List<String>();
+                IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+                foreach (String snEmail in stnEmilList)
+                {
+                    var filter2 = Builders<User>.Filter.Where(x => x.email == snEmail);
+                    var update2 = Builders<User>.Update.Push(x => x.assignmentAssigned, asnName);
+                    u_collection.FindOneAndUpdate(filter2, update2);
+                }
+
+                assignStatus = true;
+                return assignStatus;
+            }
+            catch
+            {
+
+                return assignStatus;
+            }
+
+            //pushAssignmentName to student
+
+        }
+        public Boolean updateScore(String email, String asnName,int score)
+        {
+            Boolean updateSuccess = false;
+            try 
+            {
+                IMongoCollection<Assignment> u_collection = db.GetCollection<Assignment>("Assignment");
+                var filter = Builders<Assignment>.Filter.Where(x => x.assignmentName == asnName && x.result.Any(rn => rn.userEmail == email));
+                var update = Builders<Assignment>.Update.Set(x => x.result[-1].score, score);
+                u_collection.FindOneAndUpdate(filter, update);
+                updateSuccess = true;
+                return updateSuccess;
+            }
+            catch
+            {
+                return updateSuccess;
+            }
+
+        }
+
+        public Boolean deleteAssignmentStudent(String email, String asnName)
+        {
+            Boolean updateSuccess = false;
+            try
+            {
+                IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+                var filter = Builders<User>.Filter.Where(x => x.email == email && x.assignmentAssigned.Any(rn => rn == asnName));
+                var update = Builders<User>.Update.Unset(x => x.assignmentAssigned[-1]);
+                u_collection.FindOneAndUpdate(filter, update);
+                updateSuccess = true;
+                return updateSuccess;
+            }
+            catch
+            {
+                return updateSuccess;
+            }
+        }
+          public Assignment getAssignemt(String asnName)
+        {
+            Assignment an= null;
+            try
+            {
+                IMongoCollection<Assignment> a_collection = db.GetCollection<Assignment>("Assignment");
+                var p = Builders<Assignment>.Filter.Eq(x => x.assignmentName, asnName);
+                List<Assignment> lAsn;
+
+                lAsn = a_collection.Find(p).ToList();
+                if (lAsn.Count > 0)
+                {
+                    an = lAsn[0];
+                    return an;
+                }
+                return an;
+            }
+            catch
+            {
+                return an;
+            }
+
+        }
+
+        public List<User> getLeaderboard()
+        {
+
+            List<User> aun = null;
+            try
+            {
+                List<String> lstScoreEmail = new List<String>();
+                IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+                var p = Builders<User>.Projection.Include(x => x.email).Include(x => x.mpStatus.AccumulatedPoints);
+                var filter = Builders<User>.Filter.Eq(u => u.accountType, 1);
+                aun = u_collection.Find(new BsonDocument()).Project<User>(p).ToList();
+                return aun;
+
+
+
+            }
+            catch
+            {
+                return aun;
+            }
+
+
         }
     }
 }

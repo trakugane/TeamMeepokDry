@@ -48,7 +48,7 @@ public class RegisterValidate : MonoBehaviour
                
                 //All Input Fields are Correct and Valid
                 //Send to DBManager for storing into database and return back to login page.
-                Assets.Models.User user = new Assets.Models.User(Password, null, 1, Name, Email, null);
+                Assets.Models.User user = new Assets.Models.User(Password, null, 0, Name, Email, null, new List<String>());
 
                 if (Assets.DatabaseInit.dbInit.createUser(user))
                 {

@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
     public Button btnSummaryReport;
     public Button btnEditQuestions;*/
     public GameObject btnMainMenuTeacher;
+    public GameObject btnAssignment;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log(UserPlayer.userPlayer.accountType);
         Debug.Log(UserPlayer.userPlayer.currProg);
         checkAccountType(UserPlayer.userPlayer.accountType);
+        checkAssignment();
     }
 
     // Update is called once per frame
@@ -48,6 +50,20 @@ public class MainMenuManager : MonoBehaviour
             btnSummaryReport.gameObject.SetActive(true);
             btnEditQuestions.gameObject.SetActive(true);*/
             btnMainMenuTeacher.SetActive(true);
+        }
+    }
+
+    public void checkAssignment ()
+    {
+        Assets.Models.User usr = Assets.DatabaseInit.dbInit.retrieveUser(UserPlayer.userPlayer.email);
+        List<string> tmp = usr.assignmentAssigned;
+        if (tmp?.Count > 0)
+        {
+            btnAssignment.SetActive(true);
+        }
+        else
+        {
+            btnAssignment.SetActive(false);
         }
     }
 }

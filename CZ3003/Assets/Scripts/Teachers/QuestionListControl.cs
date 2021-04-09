@@ -23,25 +23,25 @@ public class QuestionListControl : MonoBehaviour
         Invoke("GenerateList", 2f);
         
         
-    } 
+    }
 
 
 
-    public async void GenerateList() 
+    public void GenerateList()
     {
-        buttons = new List<GameObject>();
         Assets.DatabaseInit dbInit = GameObject.FindGameObjectWithTag("DBinit").GetComponent<Assets.DatabaseInit>();
-        var task = dbInit.retrieveAllQuestions();
-        var questionList = await task;
-        
-
-        
+        buttons = new List<GameObject>();
+        List<Assets.Models.Question> questionList = new List<Assets.Models.Question>();
+        questionList = dbInit.retrieveAllQuestion();
         foreach (Assets.Models.Question question in questionList)
         {
-            GameObject button = Instantiate(buttonTemplate) as GameObject;
+            GameObject button = Instantiate(buttonTemplate);
             button.SetActive(true);
             //SetText should replace with question
-            button.GetComponent<QuestionListButton>().SetText("Button " + question.questionTitle);
+            button.GetComponent<QuestionListButton>().SetText(question.questionTitle);
+            button.name = question.id.ToString();
+            Debug.Log(button.name);
+
 
             button.transform.SetParent(buttonTemplate.transform.parent, false);
             buttons.Add(button.gameObject);

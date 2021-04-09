@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
+
         currentTime = startingTime;
         pointsFromGame = 0;             // initialize everyones points to 0 !
         setMyUsername();
@@ -108,13 +109,13 @@ public class GameController : MonoBehaviour
     public void DestroyObject()
     {
         Destroy(MultiplayerSetting.multiplayerSetting.gameObject);
-        Destroy(PhotonRoom.room.gameObject);
+        Destroy(PhotonRoomCustom.room.gameObject);
     }
     public void DisconnectPlayer()
     {
         StartCoroutine(DisconnectAndLoad());
         Destroy(MultiplayerSetting.multiplayerSetting);
-        Destroy(PhotonRoom.room);
+        Destroy(PhotonRoomCustom.room);
         SceneManager.LoadScene("MainMenu");
 
     }
@@ -130,7 +131,7 @@ public class GameController : MonoBehaviour
     // client side 1 - set own username 2 - display questions over n over again
     public void setMyUsername()
     {
-        //String username = PhotonRoom.room.username; // trying to get straight from photonnetwork
+       
         String username = PhotonNetwork.NickName;
         usernameTEXT.text = username;
     }

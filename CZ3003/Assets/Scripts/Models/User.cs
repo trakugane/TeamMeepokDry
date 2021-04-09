@@ -15,8 +15,11 @@ namespace Assets.Models
         public SinglePlayer spProgress { get; set; }
         public PVP mpStatus { get; set; }
 
+        //tba to constructor
+        public List<String> assignmentAssigned { get; set; }
+
         public User() { }
-        public User(String Password,SinglePlayer spProgress,int accountType,String name,String email,PVP mpStatus)
+        public User(String Password,SinglePlayer spProgress,int accountType,String name,String email,PVP mpStatus,List<String> assignmentAssigned)
         {
             this.Password = Password;
             this.spProgress = spProgress;
@@ -24,6 +27,7 @@ namespace Assets.Models
             this.name = name;
             this.email = email;
             this.mpStatus = mpStatus;
+            this.assignmentAssigned = assignmentAssigned;
         }
     }
 }
