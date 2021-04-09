@@ -15,33 +15,90 @@ public class QuestionBank : MonoBehaviour
     // a x b = ans
     int a, b;
     int ans;
+    string qnOperator;
+    List<Button> btnList;
 
     private void Start()
     {
+        
+        var operatorList = new List<string> { "+", "-", "*" };  //, "/" remove divide 
+        int index = UnityEngine.Random.Range(0,operatorList.Count);
+        qnOperator = operatorList[index];   // should be + - * /
 
-        a = UnityEngine.Random.Range(0, 10);
-        b = UnityEngine.Random.Range(0, 10);
-        ans = a * b;
-        setText();
+        btnList = new List<Button> { ans1, ans2, ans3, ans4 };
+        a = UnityEngine.Random.Range(1, 25);
+        b = UnityEngine.Random.Range(1, 25);
+
+        setAns(qnOperator, a , b);
+        setText(qnOperator, a, b);
         setBtnAns();
     }
 
-    private void setText()
+    private void setAns(string oper, int a, int b)
     {
-        string msg = "Question : " + a + " X " + b + " ?";
+        if (oper.Equals("+"))
+        {
+            ans = a + b;
+
+        }
+        if (oper.Equals("-"))
+        {
+            ans = a - b;
+        }
+        if (oper.Equals("*"))
+        {
+            ans = a * b;
+        }
+
+        /*
+        if (oper.Equals("/"))
+        {
+            ans = a / b;
+            
+        } */
+    }
+    private void setText(string oper, int a, int b)
+    {
+        string msg = "Question: " + a + " " + oper + " " + b + " = ?";
         qnText.text = msg;
     }
 
+
+   
+    
+    public void Shuffle<T>(IList<T> list)
+    {
+        System.Random rng = new System.Random();
+
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+    
     private void setBtnAns()
     {
-        ans1.GetComponentInChildren<Text>().text = ans.ToString();
-        ans2.GetComponentInChildren<Text>().text = 123.ToString();
-        ans3.GetComponentInChildren<Text>().text = 456.ToString();
-        ans4.GetComponentInChildren<Text>().text = 789.ToString();
+        Shuffle<Button>(btnList);
+        // 4 ans , 1 correct ans  and 3 wrong ans
+        int wrongans1 = a + b + UnityEngine.Random.Range(1,7);
+        int wrongans2 = a * (b + 1) + a*UnityEngine.Random.Range(1,3) ;
+        int wrongans3 = a - b - UnityEngine.Random.Range(1, 7);
+
+        btnList[0].GetComponentInChildren<Text>().text = ans.ToString();
+        btnList[1].GetComponentInChildren<Text>().text = wrongans1.ToString();
+        btnList[2].GetComponentInChildren<Text>().text = wrongans2.ToString();
+        btnList[3].GetComponentInChildren<Text>().text = wrongans3.ToString();
+
     }
 
     public void onButtonClicked(Button btn)
     {
+        // 10/3
         Text btnText = btn.GetComponentInChildren<Text>();
         int noFromButton = Int32.Parse(btnText.text);
         Debug.Log("number from button is " + noFromButton);

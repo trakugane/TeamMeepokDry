@@ -42,4 +42,18 @@ public class SocialSharing : MonoBehaviour
 		Application.OpenURL("https://www.facebook.com/dialog/feed?" + "app_id=" + AppID + "&link=" + Link + "&picture=" + Picture
 							 + "&caption=" + Caption /*+ score.points*/ + "&description=" + Description);
 	}
+
+	string text = "I have created a PVP room. \n\nChallenge me at " + PhotonLobbyCustom.lobby.roomName;
+	public void shareRoomOnTwitter()
+    {
+		//string text = "I have created a PVP room. \n\nChallenge me at " + PhotonLobbyCustom.lobby.roomName;
+		Application.OpenURL(TWITTER_ADDRESS +
+		   "?text=" + WWW.EscapeURL(text + "\n\nGet the Game:\n" + Link + "\n\n#TeamMeePokDryGame #CZ3003"));
+	}
+
+	public void shareRoomOnFacebook()
+    {
+		Application.OpenURL("https://www.facebook.com/dialog/feed?" + "app_id=" + AppID + "&link=" + Link + "&picture=" + Picture
+							 + "&caption=" + text);
+	}
 }

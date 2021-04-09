@@ -311,8 +311,6 @@ public class GameplayAssignmentManager : MonoBehaviour
     void updateUser()
     {
         print("Updated User");
-        print(UserPlayer.userPlayer.email);
-        print(int.Parse(GameObject.Find("CurrentScoreText").GetComponent<Text>().text));
     }
 
     public void addBtnBackScreenListener()

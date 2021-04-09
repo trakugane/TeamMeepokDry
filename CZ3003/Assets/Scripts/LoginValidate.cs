@@ -81,6 +81,7 @@ public class LoginValidate : MonoBehaviour
         UserPlayer.userPlayer.accountType = usr.accountType;
         UserPlayer.userPlayer.currProg = usr.spProgress.currStage;
         UserPlayer.userPlayer.email = usr.email;
+        UserPlayer.userPlayer.mpstatus = usr.mpStatus;
 
         return true;
     }

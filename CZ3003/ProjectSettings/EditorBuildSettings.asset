@@ -28,13 +28,13 @@ EditorBuildSettings:
     guid: 5df6ec589f411b6478d005281b0d8c89
   - enabled: 0
     path: 
-    guid: 4ec5bc7e912072a4fa57ee4b3f3ca8ce
-  - enabled: 1
-    path: Assets/Scenes/PVP/PVPLastGameplay.unity
-    guid: e6892b55d45b6ce4ca55f800d8442d5a
-  - enabled: 1
-    path: Assets/Scenes/PVP/PVPLastWaitRoom.unity
-    guid: fc11c1ead55539d449199516b0ddae8f
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Teachers/DeleteQuestion.unity
     guid: 66b3214c80633764d976733b494e2dcc

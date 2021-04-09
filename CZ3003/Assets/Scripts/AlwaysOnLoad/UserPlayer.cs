@@ -12,6 +12,7 @@ public class UserPlayer : MonoBehaviour
     public int accountType;
     public int stageValue;
     public int selectedStageValue;
+    public Assets.Models.PVP mpstatus;
 
     private void Awake()
     {

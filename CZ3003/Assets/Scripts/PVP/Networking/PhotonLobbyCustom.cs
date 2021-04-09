@@ -49,7 +49,8 @@ public class PhotonLobbyCustom : MonoBehaviourPunCallbacks , ILobbyCallbacks
         base.OnConnectedToMaster();
         Debug.Log("Player has connected from OnConnectedToMaster()");
         PhotonNetwork.AutomaticallySyncScene = true; // when master client load the scene, all player connected to master client will load same scene
-        PhotonNetwork.NickName = "user" + Random.Range(0, 1000);
+        //PhotonNetwork.NickName = "user" + Random.Range(0, 1000);
+        PhotonNetwork.NickName = UserPlayer.userPlayer.userName;
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

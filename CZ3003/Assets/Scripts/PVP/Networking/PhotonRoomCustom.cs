@@ -97,6 +97,7 @@ public class PhotonRoomCustom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             if (numberOfPlayersInRoom == 1)
             {
                 RestartTimer();
+                hostStartBtn.GetComponent<Button>().interactable = false;
             }
             if (!isGameLoaded)
             {
@@ -110,9 +111,12 @@ public class PhotonRoomCustom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 {
                     lessThanMaxPlayers -= Time.deltaTime;
                     timeToStart = lessThanMaxPlayers;
+
+                    hostStartBtn.GetComponent<Button>().interactable = true;
                 }
                 //Debug.Log("Display time to start to the players " + timeToStart);
-                if (timeToStart <= 0 || hostStart) // if time = 0 ; or host click startbtn -> start game
+                //if (timeToStart <= 0 || hostStart) // if time = 0 ; or host click startbtn -> start game
+                if (hostStart)
                 {
                     Debug.Log("at line98");
                     StartGame();
@@ -174,7 +178,8 @@ public class PhotonRoomCustom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             //
             if (numberOfPlayersInRoom > 1)
             {
-                //readyToCount = true;
+                readyToCount = true;
+                
             }
             if (numberOfPlayersInRoom == MultiplayerSetting.multiplayerSetting.maxPlayers)
             {
@@ -233,7 +238,7 @@ public class PhotonRoomCustom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         {
             if (numberOfPlayersInRoom > 1)
             {
-                //readyToCount = true;  // disabled ready to count
+                readyToCount = true;  // disabled ready to count
             }
             if (numberOfPlayersInRoom == MultiplayerSetting.multiplayerSetting.maxPlayers)
             {
@@ -252,7 +257,8 @@ public class PhotonRoomCustom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
         if (PhotonNetwork.PlayerList.Length > 1)
         {
-            PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[1]); // ???????? bad logic?
+            PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]); // change to [1] or [0] ? who is [0]
+            
         }
         PhotonNetwork.LeaveRoom();
         
@@ -260,10 +266,14 @@ public class PhotonRoomCustom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     // when master client change , change host and activate some1s start button
     void IInRoomCallbacks.OnMasterClientSwitched(Player newMasterClient)
     {
-        if (newMasterClient.IsMasterClient)
+        // bad logic, of cos masterclient is masterclient
+        // how to check if ClientPlayer is masterclient
+
+        if (PhotonNetwork.LocalPlayer.IsMasterClient) // newMasterClient)     // bad logic, of cos masterclient is masterclient
         {
             hostStartBtn.SetActive(true);
         }
+        Debug.Log(newMasterClient.NickName + " is now the host!");
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {

@@ -520,5 +520,15 @@ namespace Assets
 
 
         }
+
+        public Boolean PVPincrement(String email)
+        {
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Where(x => x.email == email);
+            var update = Builders<User>.Update.Inc(u => u.mpStatus.AccumulatedPoints, 3);
+            u_collection.FindOneAndUpdate(filter, update);
+
+            return true;
+        }
     }
 }

@@ -34,8 +34,11 @@ public class GameController : MonoBehaviour
 
     // network
     public GameObject PlayerXPrefab;
-    private int winCondition = 5; // just need to answer 5 qn example
+    public int winCondition = 20; // just need to answer 5 qn example -> 9Apr changed to 20
     public GameObject gameEndPanel;
+
+    // store winner!?
+    private string winnersName;
 
 
     void Start()
@@ -67,7 +70,7 @@ public class GameController : MonoBehaviour
         {
             gameTime -= 1 * Time.deltaTime;
             gameTimer.text = "Time Left: " + gameTime.ToString("0") + " sec";
-            if (gameTime <= 0 )  // add in win condition , or player 100 points example
+            /*if (gameTime <= 0 )  // add in win condition , or player 100 points example
             {
                 
                 Debug.Log("you have achieved a score of " + pointsFromGame);
@@ -76,10 +79,12 @@ public class GameController : MonoBehaviour
                 //disconnect use this 2
                 DestroyObject();
                 DisconnectPlayer();
-            }
+            } */
 
             if (pointsFromGame == winCondition)     // reach wincondition (5points currently)
             {
+                // shouldnt put here cos its update() , will keep +++?
+                
                 RPC_GameEnd();
             }
         }
@@ -103,6 +108,12 @@ public class GameController : MonoBehaviour
     // for leaving room / back button in pvp
     public void LeaveGame()
     {
+        if (UserPlayer.userPlayer.userName.Equals(winnersName))
+        {
+
+            UserPlayer.userPlayer.mpstatus.AccumulatedPoints += 3;
+            Assets.DatabaseInit.dbInit.PVPincrement(UserPlayer.userPlayer.email);
+        }
         DestroyObject();
         DisconnectPlayer();
     }
@@ -211,19 +222,50 @@ public class GameController : MonoBehaviour
     [PunRPC]
     public void RPC_GameEnd()
     {
+        
         PV.RPC("RPC_ShowGameEndPanel", RpcTarget.All, PhotonNetwork.NickName);
     }
 
     [PunRPC]
-    public void RPC_ShowGameEndPanel(string username)
+    public void RPC_ShowGameEndPanel(string username )
     {
         gamePanel.SetActive(false); //disable
         gameEndPanel.SetActive(true); // enable
 
-        string gameEndMessage = username + " has won." +
-            // add in 'your updated rank points, eg; player.rankpoints +/- 3 .toString()
-            "\n return to main menu.";
+        // store winner name into private stuff 
+        // to update points when user leaveGame()
+        winnersName = username;
 
-        gameEndPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = gameEndMessage;
+        //winner
+        GameObject winner = GameObject.Find("Winner");
+        winner.GetComponent<Text>().text = "Winner \n" + username;
+        
+        //loser
+        GameObject loser = GameObject.Find("Loser");
+        string loserNames = "";
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.NickName != username)
+            {
+                loserNames += "\n" + player.NickName;
+            }
+        }
+        loser.GetComponent<Text>().text += loserNames; // need to add "/n" in loop
+
+        // points
+        GameObject rankPoints = GameObject.Find("RankPoints");
+        int userRankPoints = UserPlayer.userPlayer.mpstatus.AccumulatedPoints;
+        int pointsToAdd = 0;
+        
+        if (UserPlayer.userPlayer.userName == username)
+        {
+            pointsToAdd = 3;
+        }
+
+        rankPoints.GetComponent<Text>().text = "Rank Points : \n" + userRankPoints + " + " + pointsToAdd;
+
+        //gameEndPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = gameEndMessage;
     }
+
+    
 }
