@@ -473,16 +473,39 @@ namespace Assets
                 return updateSuccess;
             }
         }
-          public Assignment getAssignemt(String asnName)
+          public Assignment getAssignemt(String asnID)
         {
             Assignment an= null;
             try
             {
                 IMongoCollection<Assignment> a_collection = db.GetCollection<Assignment>("Assignment");
-                var p = Builders<Assignment>.Filter.Eq(x => x.assignmentName, asnName);
+                var p = Builders<Assignment>.Filter.Eq(x => x.id, ObjectId.Parse(asnID));
                 List<Assignment> lAsn;
 
                 lAsn = a_collection.Find(p).ToList();
+                if (lAsn.Count > 0)
+                {
+                    an = lAsn[0];
+                    return an;
+                }
+                return an;
+            }
+            catch
+            {
+                return an;
+            }
+
+        }
+        public async Task<Assignment> getAssignemtAsync(String asnID)
+        {
+            Assignment an = null;
+            try
+            {
+                IMongoCollection<Assignment> a_collection = db.GetCollection<Assignment>("Assignment");
+                var p = Builders<Assignment>.Filter.Eq(x => x.id, ObjectId.Parse(asnID));
+                List<Assignment> lAsn;
+
+                lAsn = (List<Assignment>)await a_collection.FindAsync(p);
                 if (lAsn.Count > 0)
                 {
                     an = lAsn[0];
@@ -529,6 +552,51 @@ namespace Assets
             u_collection.FindOneAndUpdate(filter, update);
 
             return true;
+        }
+
+        public Boolean deleteAssignment(String asnName)
+        {
+
+            Boolean deleteStatus = false;
+            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+            var p = Builders<Question>.Filter.Eq(x => x.questionType, asnName);
+            long deleteCountQn = qn_collection.DeleteMany(p).DeletedCount;
+
+            IMongoCollection<Assignment> an_collection = db.GetCollection<Assignment>("Assignment");
+            var an_p = Builders<Assignment>.Filter.Eq(x => x.id, ObjectId.Parse(asnName));
+            long deleteCountAns = an_collection.DeleteOne(an_p).DeletedCount;
+
+            if ((deleteCountQn >= 1) && (deleteCountAns >= 1))
+            {
+                return deleteStatus = true;
+            }
+            return deleteStatus;
+
+        }
+        public async Task<Boolean> deleteAssignmentAsync(String asnID, String asnName)
+        {
+
+            Boolean deleteStatus = false;
+            
+
+            IMongoCollection<Assignment> an_collection = db.GetCollection<Assignment>("Assignment");
+            var an_p = Builders<Assignment>.Filter.Eq(x => x.id, ObjectId.Parse(asnID));
+            DeleteResult deleteResultAns = await an_collection.DeleteOneAsync(an_p);
+            long deleteCountAns = deleteResultAns.DeletedCount;
+            Debug.Log(deleteCountAns);
+
+            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+            var p = Builders<Question>.Filter.Eq(x => x.questionType, asnName);
+            DeleteResult deleteResultQn = await qn_collection.DeleteManyAsync(p);
+            long deleteCountQn = deleteResultQn.DeletedCount;
+            Debug.Log(deleteCountQn);
+
+            if ((deleteCountQn >= 1) && (deleteCountAns >= 1))
+            {
+                return deleteStatus = true;
+            }
+            return deleteStatus;
+
         }
     }
 }

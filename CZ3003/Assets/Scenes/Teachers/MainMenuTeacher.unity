@@ -792,6 +792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accountType: 0
   btnMainMenuTeacher: {fileID: 0}
+  btnAssignment: {fileID: 0}
 --- !u!4 &465685114
 Transform:
   m_ObjectHideFlags: 0
@@ -1712,7 +1713,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: DeleteQuestion
+          m_StringArgument: DeleteAssignment
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &944088728

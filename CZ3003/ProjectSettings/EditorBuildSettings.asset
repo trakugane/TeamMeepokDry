@@ -35,7 +35,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Teachers/DeleteQuestion.unity
     guid: 66b3214c80633764d976733b494e2dcc
   - enabled: 1
@@ -62,6 +62,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerHistory/PlayerHistory.unity
     guid: fdb88031fc8092f439ff56824ac969d1
+  - enabled: 1
+    path: Assets/Scenes/Teachers/DeleteAssignment.unity
+    guid: 8eb61b99e71c43543a6c55b40125d429
   - enabled: 1
     path: Assets/Scenes/Settings/SettingsScreen.unity
     guid: 4d282cbacc4539548b9a7da00baacdda
@@ -92,4 +95,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameplayAssignment.unity
     guid: c9a5fdca07511e14daa721aadc6f2abe
+  - enabled: 1
+    path: Assets/Scenes/Teachers/AssignmentResults.unity
+    guid: 8c0fbbbe953d56040a7936bdf539755c
   m_configObjects: {}
