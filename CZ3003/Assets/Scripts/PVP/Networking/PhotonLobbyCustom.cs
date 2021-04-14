@@ -19,6 +19,9 @@ public class PhotonLobbyCustom : MonoBehaviourPunCallbacks , ILobbyCallbacks
 
     public List<RoomInfo> roomListings;
 
+    public Text roomNameField;
+    public GameObject msgtoDisplay;
+
    
     private void Awake()
     {
@@ -116,9 +119,16 @@ public class PhotonLobbyCustom : MonoBehaviourPunCallbacks , ILobbyCallbacks
     public void CreateRoom()
     {
         Debug.Log("trying to create a new room");
-        
-        RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte) 4  }; // changed to 4 from roomSize
-        PhotonNetwork.CreateRoom(roomName, roomOps);
+
+        if (roomNameField.text.Equals(""))
+        {
+            msgtoDisplay.SetActive(true);
+        }
+        else
+        {
+            RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)4 }; // changed to 4 from roomSize
+            PhotonNetwork.CreateRoom(roomName, roomOps);
+        }
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)

@@ -43,16 +43,31 @@ public class SocialSharing : MonoBehaviour
 							 + "&caption=" + Caption /*+ score.points*/ + "&description=" + Description);
 	}
 
-	string text = "I have created a PVP room. \n\nChallenge me at " + PhotonLobbyCustom.lobby.roomName;
+	
 	public void shareRoomOnTwitter()
     {
-		//string text = "I have created a PVP room. \n\nChallenge me at " + PhotonLobbyCustom.lobby.roomName;
+		string text = "I have created a PVP room. \n\nChallenge me at " + PhotonLobbyCustom.lobby.roomName;
 		Application.OpenURL(TWITTER_ADDRESS +
 		   "?text=" + WWW.EscapeURL(text + "\n\nGet the Game:\n" + Link + "\n\n#TeamMeePokDryGame #CZ3003"));
 	}
 
 	public void shareRoomOnFacebook()
     {
+		string text = "I have created a PVP room. \n\nChallenge me at " + PhotonLobbyCustom.lobby.roomName;
+		Application.OpenURL("https://www.facebook.com/dialog/feed?" + "app_id=" + AppID + "&link=" + Link + "&picture=" + Picture
+							 + "&caption=" + text);
+	}
+
+	public void shareAssignmentOnTwitter()
+	{
+		string text = "I have created an assignment. \n\nLog in to do the assignment.";
+		Application.OpenURL(TWITTER_ADDRESS +
+		   "?text=" + WWW.EscapeURL(text + "\n\nGet the Game:\n" + Link + "\n\n#TeamMeePokDryGame #CZ3003"));
+	}
+
+	public void shareAssignmentOnFacebook()
+	{
+		string text = "I have created an assignment. \n\nLog in to do the assignment.";
 		Application.OpenURL("https://www.facebook.com/dialog/feed?" + "app_id=" + AppID + "&link=" + Link + "&picture=" + Picture
 							 + "&caption=" + text);
 	}

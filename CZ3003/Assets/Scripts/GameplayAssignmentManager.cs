@@ -311,6 +311,8 @@ public class GameplayAssignmentManager : MonoBehaviour
     void updateUser()
     {
         print("Updated User");
+        Assets.DatabaseInit.dbInit.updateScore(UserPlayer.userPlayer.email, assignmentTitle, playerscore);
+        Assets.DatabaseInit.dbInit.deleteAssignmentStudent(UserPlayer.userPlayer.email, assignmentTitle);
     }
 
     public void addBtnBackScreenListener()

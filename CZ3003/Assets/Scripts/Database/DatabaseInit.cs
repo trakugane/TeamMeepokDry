@@ -463,7 +463,8 @@ namespace Assets
             {
                 IMongoCollection<User> u_collection = db.GetCollection<User>("User");
                 var filter = Builders<User>.Filter.Where(x => x.email == email && x.assignmentAssigned.Any(rn => rn == asnName));
-                var update = Builders<User>.Update.Unset(x => x.assignmentAssigned[-1]);
+                /*var update = Builders<User>.Update.Unset(x => x.assignmentAssigned[-1]);*/
+                var update = Builders<User>.Update.PopFirst(x => x.assignmentAssigned);
                 u_collection.FindOneAndUpdate(filter, update);
                 updateSuccess = true;
                 return updateSuccess;
@@ -591,6 +592,12 @@ namespace Assets
             long deleteCountQn = deleteResultQn.DeletedCount;
             Debug.Log(deleteCountQn);
 
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Where(x => x.assignmentAssigned.Any(rn => rn == asnName));
+            /*var update = Builders<User>.Update.Unset(x => x.assignmentAssigned[-1]);*/
+            var update = Builders<User>.Update.PopFirst(x => x.assignmentAssigned);
+            u_collection.UpdateMany(filter, update);
+
             if ((deleteCountQn >= 1) && (deleteCountAns >= 1))
             {
                 return deleteStatus = true;
@@ -598,5 +605,54 @@ namespace Assets
             return deleteStatus;
 
         }
+
+        public Boolean deleteAssignmentAllUser(String asnName)
+        {
+            Boolean updateSuccess = false;
+            try
+            {
+                IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+                var filter = Builders<User>.Filter.Where(x => x.assignmentAssigned.Any(rn => rn == asnName));
+                var update = Builders<User>.Update.Unset(x => x.assignmentAssigned[-1]);
+                u_collection.UpdateMany(filter, update);
+                updateSuccess = true;
+                return updateSuccess;
+            }
+            catch
+            {
+                return updateSuccess;
+            }
+        }
+
+        public List<StageProgress> getCummulativeAttemptStages()
+        {
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Eq(u => u.accountType, 0);
+            List<User> studList = new List<User>();
+            studList = u_collection.Find(filter).ToList();
+            List<StageProgress> culSP = null;
+            foreach (User std in studList)
+            {
+                if (culSP == null)
+                {
+                    culSP = new List<StageProgress>();
+                    foreach (StageProgress sp in std.spProgress.AllStageProgress)
+                    {
+
+                        culSP.Add(sp);
+                    }
+                }
+                else
+                {
+                    List<StageProgress> lsp = std.spProgress.AllStageProgress;
+                    for (int i = 0; i < lsp.Count; i++)
+                    {
+                        culSP[i].Attempt += lsp[i].Attempt;
+                    }
+                }
+            }
+            return culSP;
+        }
     }
+
 }
