@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class StageSelectManager : MonoBehaviour
+public class StageSelectManager : MonoBehaviour, IStageSelectManager
 {
 
     public int currProg;
@@ -35,7 +35,7 @@ public class StageSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void addBtnStageListener()
@@ -64,7 +64,7 @@ public class StageSelectManager : MonoBehaviour
             if (UserPlayer.userPlayer.currProg == UserPlayer.userPlayer.selectedStageValue)
                 incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
-        }  
+        }
         if (btnName == "Btn_Stage3")
         {
             UserPlayer.userPlayer.selectedStageValue = stageValue + 3;
@@ -78,7 +78,7 @@ public class StageSelectManager : MonoBehaviour
             if (UserPlayer.userPlayer.currProg == UserPlayer.userPlayer.selectedStageValue)
                 incrementCounter();
             /*Debug.Log("selectedStageValue: " + Player.userPlayer.selectedStageValue);*/
-        }  
+        }
         if (btnName == "Btn_Stage5")
         {
             UserPlayer.userPlayer.selectedStageValue = stageValue + 5;
@@ -88,7 +88,7 @@ public class StageSelectManager : MonoBehaviour
         }
     }
 
-        public bool loadStage(int currentProgress, int stageValue)
+    public bool loadStage(int currentProgress, int stageValue)
     {
         if (currentProgress >= stageValue)
         {
@@ -129,7 +129,7 @@ public class StageSelectManager : MonoBehaviour
             }
         }
 
-        
+
 
         return false;
 

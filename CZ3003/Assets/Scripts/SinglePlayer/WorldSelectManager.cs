@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class WorldSelectManager : MonoBehaviour
+public class WorldSelectManager : MonoBehaviour, IWorldSelectManager
 {
 
     public int currProg;
@@ -31,13 +31,13 @@ public class WorldSelectManager : MonoBehaviour
             Debug.Log("Load World Successful");
         else
             Debug.Log("Error: currProg value is < 0 or > 55");
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void addBtnWorldListener()
@@ -52,11 +52,11 @@ public class WorldSelectManager : MonoBehaviour
     public void setStageValue()
     {
         /*PlayerPrefs.SetInt("stageValue", stageValue);*/
-        
+
         string btnName = EventSystem.current.currentSelectedGameObject.name;
         /*Debug.Log(EventSystem.current.currentSelectedGameObject.name);*/
         /*Debug.Log(btnName == "BtnWorld1");*/
-        if (btnName == "BtnWorld1")   
+        if (btnName == "BtnWorld1")
             UserPlayer.userPlayer.stageValue = 15;
         if (btnName == "BtnWorld2")
             UserPlayer.userPlayer.stageValue = 25;
@@ -67,7 +67,7 @@ public class WorldSelectManager : MonoBehaviour
         /*if (btnName == "BtnWorld5")
             UserPlayer.userPlayer.stageValue = 55;*/
 
-        
+
 
     }
 
@@ -121,7 +121,7 @@ public class WorldSelectManager : MonoBehaviour
         }*/
 
         return false;
-            
+
     }
 
     void disableAllWorlds()

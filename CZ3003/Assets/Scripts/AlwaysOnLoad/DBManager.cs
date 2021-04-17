@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Assets.Models;
 
-public class DBManager : MonoBehaviour
+public class DBManager : MonoBehaviour, IDBManager
 {
 
     public static DBManager dbm;
@@ -24,7 +24,7 @@ public class DBManager : MonoBehaviour
 
     private void Awake()
     {
-         
+
         if (DBManager.dbm == null)
         {
             DBManager.dbm = this;
@@ -45,13 +45,13 @@ public class DBManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void checkLogin(string sceneName)
     {
         // Verify if username in database and password is correct
-        
+
 
         /*if (validateUser(Username, Password) == true)
         {
@@ -84,7 +84,7 @@ public class DBManager : MonoBehaviour
             // Need display error message to UI (10/3/21)
             return false;
         }
-  
+
 
     }
 
@@ -96,15 +96,15 @@ public class DBManager : MonoBehaviour
         //if Verify Account true then call DatabaseInit retireveUser method which returns Task<User> object
         bool vAccount = dbInit.verifyAccount(email, password);
 
-       if (vAccount)
+        if (vAccount)
         {
             return dbInit.retrieveUser(email);
         }
-       else
+        else
         {
             return null;
         }
-        
+
 
 
     }
@@ -131,7 +131,7 @@ public class DBManager : MonoBehaviour
         // Call createUser(User usr) method in DatabaseInit which will return boolean
         //Method with the following parameters: Password (String) , SinglePlayer spProgress (Object) , accountType (int), name (String),email(String), mpStatus (PVP)
         Debug.Log("Test");
-        User user = new User(password,null,1,personalName,email,null, new List<string>());
+        User user = new User(password, null, 1, personalName, email, null, new List<string>());
         return dbInit.createUser(user);
 
     }
@@ -140,7 +140,7 @@ public class DBManager : MonoBehaviour
     public bool checkEmail(string email)
     {
         // Call DatabaseInit  checkEmailExist(email)
-        bool EmailExist =dbInit.checkEmailExists(email);
+        bool EmailExist = dbInit.checkEmailExists(email);
 
         if (EmailExist)
         {

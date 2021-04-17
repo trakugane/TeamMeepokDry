@@ -7,11 +7,17 @@ public class LeaderboardListText : MonoBehaviour
 {
     [SerializeField]
     private Text emailText;
-
+    
     [SerializeField]
     private Text scoreText;
 
     private string myTextString;
+
+    public void setText(Text a, Text b)
+    {
+        emailText = a;
+        scoreText = b;
+    }
 
     public void SetScoreText(int textString)
     {

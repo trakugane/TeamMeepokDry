@@ -11,16 +11,17 @@ using UnityEngine;
 
 namespace Assets
 {
-   
-    public class DatabaseInit : MonoBehaviour
+
+    public class DatabaseInit : MonoBehaviour, IDatabaseInit
     {
         public static DatabaseInit dbInit;
         private static String databaseName = "MPDry";//need to change depend on your databse name
         public static IMongoDatabase db;
         private static DatabaseInit instance = new DatabaseInit();
         private static MongoClient dc;
+        private int x = 0;
 
-       
+
         private void Awake()
         {
 
@@ -31,31 +32,34 @@ namespace Assets
             }
             DontDestroyOnLoad(DatabaseInit.dbInit);
         }
-        
-        void Start()
+
+        public void Start()
         {
 
             //dc = new MongoClient("mongodb+srv://AllInOneUser:AllInOneAdmin@university.0om1z.mongodb.net/University?retryWrites=true&w=majority");
             dc = new MongoClient("mongodb+srv://cz3003:Password1@cluster0.sj9w8.mongodb.net/test?authSource=admin&replicaSet=atlas-bwa64u-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true");
             db = dc.GetDatabase(databaseName);
-            BsonClassMap.RegisterClassMap<User>(cm =>
+            x++;
+            if (x > 0)
             {
-                cm.AutoMap();
-                cm.SetIgnoreExtraElements(true);
-            });
-            BsonClassMap.RegisterClassMap<Question>(cm =>
-            {
-                cm.AutoMap();
-                cm.SetIgnoreExtraElements(true);
-            });
-            BsonClassMap.RegisterClassMap<Assignment>(cm =>
-            {
-                cm.AutoMap();
-                cm.SetIgnoreExtraElements(true);
-            });
-
+                BsonClassMap.RegisterClassMap<User>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.SetIgnoreExtraElements(true);
+                });
+                BsonClassMap.RegisterClassMap<Question>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.SetIgnoreExtraElements(true);
+                });
+                BsonClassMap.RegisterClassMap<Assignment>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.SetIgnoreExtraElements(true);
+                });
+            }
         }
-      
+
         public static DatabaseInit getInstance()
         {
             return instance;
@@ -63,12 +67,8 @@ namespace Assets
 
         public List<User> retrieveAllUser()
         {
-
             IMongoCollection<User> c_collection = db.GetCollection<User>("User");
             return c_collection.Find(new BsonDocument()).ToList();
-
-
-           
         }
 
         public List<String> retrieveAllEmail()
@@ -108,14 +108,14 @@ namespace Assets
             usr = initialisePvP(usr);
             try
             {
-            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
-            u_collection.InsertOne(usr);
+                IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+                u_collection.InsertOne(usr);
             }
             catch
             {
                 return createUserSuccess;
             }
-           
+
 
             createUserSuccess = true;
             return createUserSuccess;
@@ -167,7 +167,7 @@ namespace Assets
             var filter = Builders<User>.Filter.Where(x => x.email == email && x.spProgress.AllStageProgress.Any(i => i.Stage == Stage));
             var update = Builders<User>.Update.Inc(u => u.spProgress.AllStageProgress[-1].Attempt, 1);
             u_collection.FindOneAndUpdate(filter, update);
-             
+
             return true;
         }
         public Boolean updateCurrentStage(int Stage, String email)
@@ -202,24 +202,24 @@ namespace Assets
 
         }*/
         public bool checkEmailExists(String email)
-       {
-      
-           bool checkEmailExistsSuccess = false;
-           IMongoCollection<User> u_collection = db.GetCollection<User>("User");
+        {
 
-           var filter = Builders<User>.Filter.Eq(u => u.email, email);
+            bool checkEmailExistsSuccess = false;
+            IMongoCollection<User> u_collection = db.GetCollection<User>("User");
 
-           var user = u_collection.Find<User>(filter).ToList();
-          
-           if (user.Count == 1)
-           {
-               checkEmailExistsSuccess = true;
-               Console.WriteLine("Email found");
-           }
-          
+            var filter = Builders<User>.Filter.Eq(u => u.email, email);
 
-           return checkEmailExistsSuccess;
-       }
+            var user = u_collection.Find<User>(filter).ToList();
+
+            if (user.Count == 1)
+            {
+                checkEmailExistsSuccess = true;
+                Console.WriteLine("Email found");
+            }
+
+
+            return checkEmailExistsSuccess;
+        }
         // Method to check if the email exists
         /*public async Task<Boolean> checkEmailExists(String email)
         {
@@ -260,9 +260,9 @@ namespace Assets
         // Method to verify account
         public Boolean verifyAccount(String email, String password)
         {
-  
+
             bool emailExists = instance.checkEmailExists(email);
-            
+
             if (!emailExists)
             {
                 Console.WriteLine("Invalid email/password");
@@ -275,7 +275,7 @@ namespace Assets
                 Console.WriteLine("Invalid email/password");
                 return false;
             }
-         
+
             Console.WriteLine("Login successful");
             return true;
         }
@@ -283,25 +283,28 @@ namespace Assets
         public Boolean addQuestion(Question qn)
         {
             Boolean createQnSuccess = false;
-            try { 
-            IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
-            qn_collection.InsertOne(qn);
-               
-               //qn_collection.InsertMany(lqn);
-            
+            try
+            {
+                IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
+                qn_collection.InsertOne(qn);
 
-            } catch  {
+                //qn_collection.InsertMany(lqn);
+
+
+            }
+            catch
+            {
                 return createQnSuccess;
 
             }
-            
+
 
             createQnSuccess = true;
             return createQnSuccess;
         }
         public List<Question> getQuestionsByCreator(String creatorEmail)
         {
-            
+
             IMongoCollection<Question> qn_collection = db.GetCollection<Question>("Question");
             var p = Builders<Question>.Filter.Eq(x => x.creatorEmail, creatorEmail);
             List<Question> lQn = new List<Question>();
@@ -373,8 +376,8 @@ namespace Assets
             }
 
 
-            
-            
+
+
         }
         public List<Assignment> getAllAssignmentStaff()
         {
@@ -382,21 +385,20 @@ namespace Assets
             return a_collection.Find(new BsonDocument()).ToList();
         }
 
-      
+
         //first time
         public List<AssignmentRecord> initialiseAssignmentStudent(List<String> stnEmail)
         {
 
             List<AssignmentRecord> asrList = new List<AssignmentRecord>();
             //create AssignmentRecord object and push to mongo
-            foreach (String stn in stnEmail) {
+            foreach (String stn in stnEmail)
+            {
                 AssignmentRecord asr = new AssignmentRecord(-1, stn);
                 asrList.Add(asr);
             }
-            
-            return asrList;
 
-            
+            return asrList;
         }
 
         public Boolean assignAllStudentAssgn(String asnName)
@@ -437,10 +439,10 @@ namespace Assets
             //pushAssignmentName to student
 
         }
-        public Boolean updateScore(String email, String asnName,int score)
+        public Boolean updateScore(String email, String asnName, int score)
         {
             Boolean updateSuccess = false;
-            try 
+            try
             {
                 IMongoCollection<Assignment> u_collection = db.GetCollection<Assignment>("Assignment");
                 var filter = Builders<Assignment>.Filter.Where(x => x.assignmentName == asnName && x.result.Any(rn => rn.userEmail == email));
@@ -473,9 +475,9 @@ namespace Assets
                 return updateSuccess;
             }
         }
-          public Assignment getAssignemt(String asnName)
+        public Assignment getAssignemt(String asnName)
         {
-            Assignment an= null;
+            Assignment an = null;
             try
             {
                 IMongoCollection<Assignment> a_collection = db.GetCollection<Assignment>("Assignment");

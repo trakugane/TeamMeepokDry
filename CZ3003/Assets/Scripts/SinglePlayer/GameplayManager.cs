@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class GameplayManager : MonoBehaviour
+public class GameplayManager : MonoBehaviour, IGameplayManager
 {
 
     public int selectedStageValue;

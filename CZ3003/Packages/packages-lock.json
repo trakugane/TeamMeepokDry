@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.boundfoxstudios.fluentassertions": {
+      "version": "5.10.3-r3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.2d.animation": {
       "version": "3.2.6",
       "depth": 0,
@@ -119,6 +126,18 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.test-framework.performance": {
+      "version": "1.2.3-preview",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.0.13",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.vr": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.textmeshpro": {
       "version": "2.1.1",
       "depth": 0,
@@ -148,6 +167,13 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "net.tnrd.nsubstitute": {
+      "version": "4.2.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class MainMenuManager : MonoBehaviour
+public class MainMenuManager : MonoBehaviour, IMainMenuManager
 {
     public int accountType;
     /*public Button btnViewStats;
@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
     public Button btnEditQuestions;*/
     public GameObject btnMainMenuTeacher;
     public GameObject btnAssignment;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +22,8 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log(Player.userPlayer.currProg);
         Debug.Log(Player.userPlayer.name);
         checkAccountType(accountType);*/
-        Debug.Log(UserPlayer.userPlayer.accountType);
-        Debug.Log(UserPlayer.userPlayer.currProg);
+        //Debug.Log(UserPlayer.userPlayer.accountType);
+        //Debug.Log(UserPlayer.userPlayer.currProg);
         checkAccountType(UserPlayer.userPlayer.accountType);
         checkAssignment();
     }
@@ -30,18 +31,19 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void checkAccountType (int accType)
+    public bool checkAccountType(int accType)
     {
         if (accType == 0)
         {
             /*btnViewStats.gameObject.SetActive(false);
             btnSummaryReport.gameObject.SetActive(false);
             btnEditQuestions.gameObject.SetActive(false);*/
-            btnMainMenuTeacher.SetActive(false);
 
+            btnMainMenuTeacher.SetActive(false);
+            return false;
 
         }
         else if (accType == 1)
@@ -49,11 +51,17 @@ public class MainMenuManager : MonoBehaviour
             /*btnViewStats.gameObject.SetActive(true);
             btnSummaryReport.gameObject.SetActive(true);
             btnEditQuestions.gameObject.SetActive(true);*/
+
             btnMainMenuTeacher.SetActive(true);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public void checkAssignment ()
+    public void checkAssignment()
     {
         Assets.Models.User usr = Assets.DatabaseInit.dbInit.retrieveUser(UserPlayer.userPlayer.email);
         List<string> tmp = usr.assignmentAssigned;

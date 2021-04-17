@@ -1,0 +1,57 @@
+{
+    "PlayerSystemInfo": {
+        "OperatingSystem": "",
+        "DeviceModel": "",
+        "DeviceName": "",
+        "ProcessorType": "",
+        "ProcessorCount": 0,
+        "GraphicsDeviceName": "",
+        "SystemMemorySize": 0,
+        "XrModel": "",
+        "XrDevice": ""
+    },
+    "EditorVersion": {
+        "FullVersion": "2019.4.20f1 (6dd1c08eedfa)",
+        "DateSeconds": 1612467025,
+        "Branch": "2019.4/release",
+        "RevisionValue": 7197120
+    },
+    "BuildSettings": {
+        "Platform": "WindowsEditor",
+        "BuildTarget": "StandaloneWindows",
+        "DevelopmentPlayer": true,
+        "AndroidBuildSystem": "Gradle"
+    },
+    "ScreenSettings": {
+        "ScreenWidth": 0,
+        "ScreenHeight": 0,
+        "ScreenRefreshRate": 0,
+        "Fullscreen": false
+    },
+    "QualitySettings": {
+        "Vsync": 0,
+        "AntiAliasing": 0,
+        "ColorSpace": "",
+        "AnisotropicFiltering": "",
+        "BlendWeights": ""
+    },
+    "PlayerSettings": {
+        "ScriptingBackend": "",
+        "VrSupported": false,
+        "MtRendering": false,
+        "GraphicsJobs": false,
+        "GpuSkinning": false,
+        "GraphicsApi": "",
+        "Batchmode": "",
+        "StereoRenderingPath": "",
+        "RenderThreadingMode": "",
+        "AndroidMinimumSdkVersion": "",
+        "AndroidTargetSdkVersion": "",
+        "EnabledXrTargets": [],
+        "ScriptingRuntimeVersion": ""
+    },
+    "TestSuite": "",
+    "StartTime": 1618622876013.3726,
+    "EndTime": 0.0,
+    "Results": []
+}

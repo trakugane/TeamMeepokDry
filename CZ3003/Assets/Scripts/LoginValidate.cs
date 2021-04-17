@@ -55,8 +55,8 @@ public class LoginValidate : MonoBehaviour
                     //Debug.Log(usr.name);
                     //Debug.Log(usr.email);
                     txtErrorMessage.text = "Login is Successful !";
-                        System.Threading.Thread.Sleep(1000);
-                        SceneManager.LoadScene("MainMenu");
+                    //System.Threading.Thread.Sleep(1000);
+                    SceneManager.LoadScene("MainMenu");
                 }
                 else
                 {

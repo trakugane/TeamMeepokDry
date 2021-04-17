@@ -1,0 +1,41 @@
+{
+    "name": "Tests",
+    "references": [
+        "UnityEngine.TestRunner",
+        "Scripts",
+        "BoundfoxStudios.FluentAssertions"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "NSubstitute.dll",
+        "MongoDB.Driver.dll",
+        "Castle.Core.dll",
+        "System.Runtime.CompilerServices.Unsafe.dll",
+        "System.Threading.Tasks.Extensions.dll",
+        "Photon3Unity3D.dll",
+        "DnsClient.dll",
+        "MongoDB.Bson.dll",
+        "MongoDB.LibMongocrypt.dll",
+        "MongoDB.Driver.Core.dll",
+        "SharpCompress.dll",
+        "System.Buffers.dll",
+        "websocket-sharp.dll",
+        "Facebook.Unity.dll",
+        "Facebook.Unity.Editor.dll",
+        "Facebook.Unity.Gameroom.dll",
+        "Facebook.Unity.Settings.dll",
+        "FacebookNamedPipeClient.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

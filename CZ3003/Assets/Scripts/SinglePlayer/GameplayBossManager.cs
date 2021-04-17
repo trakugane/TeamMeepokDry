@@ -9,7 +9,7 @@ using System.Linq;
 
 using Random = UnityEngine.Random;
 
-public class GameplayBossManager : MonoBehaviour
+public class GameplayBossManager : MonoBehaviour, IGameplayBossManager
 {
 
     public int selectedStageValue;
@@ -329,7 +329,7 @@ public class GameplayBossManager : MonoBehaviour
     void Update()
     {
         if (playingGame == true)
-        { 
+        {
             timerCurrent -= Time.deltaTime;
             setTimer(timerCurrent);
             checkGameplay();

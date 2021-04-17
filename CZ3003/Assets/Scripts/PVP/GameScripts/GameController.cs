@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, IGameController
 {
     public static GameController gameController;
     private PhotonView PV;
@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
             if (pointsFromGame == winCondition)     // reach wincondition (5points currently)
             {
                 // shouldnt put here cos its update() , will keep +++?
-                
+
                 RPC_GameEnd();
             }
         }
@@ -142,7 +142,7 @@ public class GameController : MonoBehaviour
     // client side 1 - set own username 2 - display questions over n over again
     public void setMyUsername()
     {
-       
+
         String username = PhotonNetwork.NickName;
         usernameTEXT.text = username;
     }
@@ -165,9 +165,9 @@ public class GameController : MonoBehaviour
         {
             int playersFromPhotonNetwork = PhotonNetwork.PlayerList.Length;
 
-         
-            int i = 0; 
-            foreach (Player player in PhotonNetwork.PlayerList) 
+
+            int i = 0;
+            foreach (Player player in PhotonNetwork.PlayerList)
             {
                 if (!player.IsLocal)
                 {
@@ -179,7 +179,7 @@ public class GameController : MonoBehaviour
                         newObject.GetComponent<Image>().color = new Color32(255, 93, 93, 255);
                         newObject.name = username;
                         newObject.GetComponentInChildren<Text>().text = "Player " + username;
-                    } 
+                    }
                     else if (i == 1) // 2nd opponent
                     {
                         string username = player.NickName;
@@ -195,12 +195,12 @@ public class GameController : MonoBehaviour
                         newObject.GetComponent<Image>().color = new Color32(88, 236, 125, 255);
                         newObject.name = username;
                         newObject.GetComponentInChildren<Text>().text = "Player " + username;
-                        
+
                     }
                     i++; // 
-                } 
-                
-            } 
+                }
+
+            }
         }
     }
 
@@ -222,12 +222,12 @@ public class GameController : MonoBehaviour
     [PunRPC]
     public void RPC_GameEnd()
     {
-        
+
         PV.RPC("RPC_ShowGameEndPanel", RpcTarget.All, PhotonNetwork.NickName);
     }
 
     [PunRPC]
-    public void RPC_ShowGameEndPanel(string username )
+    public void RPC_ShowGameEndPanel(string username)
     {
         gamePanel.SetActive(false); //disable
         gameEndPanel.SetActive(true); // enable
@@ -239,7 +239,7 @@ public class GameController : MonoBehaviour
         //winner
         GameObject winner = GameObject.Find("Winner");
         winner.GetComponent<Text>().text = "Winner \n" + username;
-        
+
         //loser
         GameObject loser = GameObject.Find("Loser");
         string loserNames = "";
@@ -256,7 +256,7 @@ public class GameController : MonoBehaviour
         GameObject rankPoints = GameObject.Find("RankPoints");
         int userRankPoints = UserPlayer.userPlayer.mpstatus.AccumulatedPoints;
         int pointsToAdd = 0;
-        
+
         if (UserPlayer.userPlayer.userName == username)
         {
             pointsToAdd = 3;
@@ -267,5 +267,5 @@ public class GameController : MonoBehaviour
         //gameEndPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = gameEndMessage;
     }
 
-    
+
 }

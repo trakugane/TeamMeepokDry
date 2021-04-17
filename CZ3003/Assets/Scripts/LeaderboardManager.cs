@@ -6,12 +6,18 @@ public class LeaderboardManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject textTemplate;
+    private GameObject mpStatEmailText;
 
     [SerializeField]
     private int[] intArray;
     /*private List<Assets.Models.User> mpStatusList = new List<Assets.Models.User>();*/
     private List<GameObject> mpStatusEmailTexts;
     private List<GameObject> mpStatusScoreTexts;
+
+    public void setTextTemplate(GameObject a)
+    {
+        textTemplate = a;
+    }
 
     // Start is called before the first frame update
     void Start()
